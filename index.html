@@ -242,7 +242,7 @@ function card(e,i){const pct=Math.min(100,Math.round(e.used/e.slot*100));const l
   <div class="fee-row">👨 Nam: ${e.male}¥ &nbsp;&nbsp; | &nbsp;&nbsp; 👩 Nữ: ${e.female}¥</div>
 </div>
 <div class="slotline">👥 Slot: ${e.used} / ${e.slot}</div>
-<div class="statusline">${left<=0?'<span class="fullbadge">🔴 Đã đầy - Đăng ký chờ</span>':`<span class="okbadge">🟢 Còn ${left} chỗ</span>`}</div>
+
 ${e.note?`<div class="note">📝 ${e.note}</div>`:''}
 <div class="actions"><button class="btn reg" onclick="openModal('needLogin')">${e.status==='full'?'Đăng ký chờ':'Đăng ký'}</button><button class="btn list" onclick="toggleList(${i})">Xem danh sách</button></div>
 <div class="listbox" id="list-${i}"><b>Danh sách đăng ký</b>${e.people.map((p,n)=>`<div class="person"><span><b class="stt">${n+1}.</b> ${p}</span><span><label class="paid-mini"><input type="checkbox"> Đã đóng</label></span></div>`).join('')}${e.wait.length?`<div class="wait"><b>Danh sách chờ</b>${e.wait.map((p,n)=>`<div class="person"><span><b class="stt">${n+1}.</b> ${p}</span><span>🟡</span></div>`).join('')}</div>`:''}</div>
