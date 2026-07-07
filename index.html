@@ -114,6 +114,11 @@ button,.auth,.pill,.btn{touch-action:manipulation;-webkit-tap-highlight-color:tr
 .warnbadge{background:#fef3c7;color:#92400e}
 .fullbadge{background:#fee2e2;color:#991b1b}
 
+
+.venue-title{font-size:28px;font-weight:900;color:#ea580c;margin:6px 0}
+.event-date{font-size:18px;font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.info strong{color:#111827}
+
 </style>
 
 <meta name="theme-color" content="#f97316">
@@ -471,8 +476,11 @@ function renderLiveEvents(){
     const c=kgCount(e), left=e.slot-c, full=left<=0;
     return `<article class="event">
       <div class="topline"><span class="area">${e.area}</span><span class="status ${full?'full':'ok'}">${full?'Đầy - Chờ':'Còn '+left+' chỗ'}</span></div>
-      <h3>🏸 ${e.date}</h3>
-      <div class="info"><div>🕒 ${e.time}</div><div>📍 ${e.place}<br>${e.address||""}</div><a class="map" href="${e.maps}" target="_blank">🗺️ Google Map</a><div>🏸 ${e.courts} sân · 👥 ${c}/${e.slot}</div></div>
+      <h3 class="venue-title">📍 ${e.place}</h3>
+      <div class="event-date">📅 ${e.date} &nbsp;&nbsp; 🕒 ${e.time}</div>
+      <div class="info">
+      <div><strong>Địa chỉ:</strong><br>${e.address||'Chưa cập nhật'}</div>
+      <a class="map" href="${e.maps}" target="_blank">🗺️ Google Map</a><div>🏸 ${e.courts} sân · 👥 ${c}/${e.slot}</div></div>
       <div class="fee">
 <div class="fee-title">💴 Phí tham gia dự kiến</div>
 <div>👨 Nam: <b>${e.maleFee}¥</b></div>
