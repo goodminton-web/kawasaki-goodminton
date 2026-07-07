@@ -247,6 +247,7 @@ function kgLogin(){
   kgSaveAuth();
   closeModal();
   kgSyncAuth();
+  renderAdmin();
 }
 function kgRegister(){
   const name = document.getElementById('kgRegName').value.trim();
@@ -298,7 +299,7 @@ function kgLogout(){
 }
 
 let currentArea='all';
-let events=[
+let events=JSON.parse(localStorage.getItem('kg_events_v3')||'null')||[
  {area:'Kawasaki',date:'12/07/2026',time:'18:30 - 21:00',place:'南河原中学校',map:'https://maps.google.com/',address:'幸区中幸町4-35-1 渡辺不動産',courts:6,slot:36,used:28,male:1000,female:800,status:'open',people:['Nguyễn Đức Xuân 👨','Hoài Thu 👩','Steven 👨 + Guest 👩'],wait:['Nguyễn Văn A 👨']},
  {area:'Shinagawa',date:'13/07/2026',time:'19:00 - 21:00',place:'宮前小学校',map:'https://maps.google.com/',address:'東京都品川区',courts:3,slot:18,used:18,male:1000,female:800,status:'full',people:['Nguyễn Ngọc Anh 👨','Ngọc Ánh 👩','Lê Vân Anh 👩'],wait:['John Smith 👨','Trần Thị B 👩']},
  {area:'Shinagawa',date:'15/07/2026',time:'18:00 - 21:00',place:'小山台小学校',map:'https://maps.google.com/',courts:3,slot:24,used:14,male:1000,female:800,status:'open',people:['Mai Anh 👩','Hoàng Nam 👨'],wait:[]},
@@ -417,6 +418,101 @@ function addEvent(){events.unshift({area:document.getElementById('newArea').valu
 const dict={vi:{label:'🇻🇳 Tiếng Việt ▼',navSchedule:'Lịch chơi',navAbout:'Giới thiệu',login:'Đăng nhập',register:'Đăng ký',registerMember:'Đăng ký thành viên',welcome:'✨ Chào mừng bạn đến với Câu lạc bộ cầu lông Kawasaki Goodminton',tagline:'“Nơi kết nối đam mê – Gắn kết cộng đồng người Việt tại Nhật Bản.”',guestNote:'🔓 Bạn vẫn có thể xem lịch chơi và danh sách đăng ký mà không cần đăng nhập.',scheduleTitle:'📅 Lịch chơi sắp diễn ra',scheduleSub:'Mở web là xem lịch, chọn sân và đăng ký nhanh.',all:'Tất cả',endedTitle:'Lịch đã kết thúc'},en:{label:'🇬🇧 English ▼',navSchedule:'Schedule',navAbout:'About',login:'Login',register:'Register',registerMember:'Register as member',welcome:'✨ Welcome to Kawasaki Goodminton Badminton Club',tagline:'“Connecting passion – Building the Vietnamese community in Japan.”',guestNote:'🔓 You can view schedules and registration lists without logging in.',scheduleTitle:'📅 Upcoming Games',scheduleSub:'Open the website, check events, and register quickly.',all:'All',endedTitle:'Finished Events'},ja:{label:'🇯🇵 日本語 ▼',navSchedule:'スケジュール',navAbout:'紹介',login:'ログイン',register:'登録',registerMember:'メンバー登録',welcome:'✨ Kawasaki Goodminton バドミントンクラブへようこそ',tagline:'「情熱をつなぎ、日本のベトナム人コミュニティを結びます。」',guestNote:'🔓 ログインしなくてもスケジュールと登録リストを確認できます。',scheduleTitle:'📅 今後のスケジュール',scheduleSub:'開いてすぐ予定を確認し、簡単に登録できます。',all:'すべて',endedTitle:'終了した予定'}}
 function setLang(lang){document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(dict[lang][k])el.textContent=dict[lang][k]});document.getElementById('langLabel').textContent=dict[lang].label;document.getElementById('langMenu').classList.remove('show')}
 kgSyncAuth();
+
+function kgSaveEvents(){
+  localStorage.setItem('kg_events_v3', JSON.stringify(events));
+}
+function kgAdminCheck(){
+  return kgCurrent && kgCurrent.role === 'admin';
+}
+function renderAdmin(){
+  const adminPage=document.getElementById('adminPage')||document.querySelector('.admin')||document.getElementById('admin');
+  if(!adminPage) return;
+  if(!kgAdminCheck()){
+    adminPage.innerHTML='<div class="panel"><h2>Chỉ Admin mới xem được trang này.</h2></div>';
+    return;
+  }
+  adminPage.innerHTML=`<div class="panel">
+    <h2>👑 Admin - Quản lý lịch chơi</h2>
+    <div class="formgrid">
+      <div><label>Khu vực</label><select id="admArea"><option>Kawasaki</option><option>Shinagawa</option></select></div>
+      <div><label>Tên sân</label><input id="admPlace" placeholder="Tên sân"></div>
+      <div><label>Ngày</label><input id="admDate" placeholder="12/07/2026"></div>
+      <div><label>Thời gian</label><input id="admTime" placeholder="18:30 - 21:00"></div>
+      <div><label>Địa chỉ sân</label><input id="admAddress" placeholder="Địa chỉ sân"></div>
+      <div><label>Google Map</label><input id="admMap" placeholder="https://maps.google.com/"></div>
+      <div><label>Số sân</label><input id="admCourts" type="number" value="3"></div>
+      <div><label>Slot tối đa</label><input id="admSlot" type="number" value="18"></div>
+      <div><label>Phí Nam</label><input id="admMale" type="number" value="1000"></div>
+      <div><label>Phí Nữ</label><input id="admFemale" type="number" value="800"></div>
+      <div style="grid-column:1/-1"><label>Ghi chú</label><textarea id="admNote" placeholder="Ghi chú"></textarea></div>
+    </div>
+    <br><button class="auth signup" onclick="kgAddEvent()">Tạo lịch</button>
+  </div>
+  <div class="panel"><h2>📅 Lịch hiện có</h2>
+    ${events.map((e,i)=>`<div class="person">
+      <span>${e.date} · ${e.time} · ${e.place} · ${e.used}/${e.slot}</span>
+      <span><button class="pill" onclick="kgEditEvent(${i})">Sửa</button> <button class="pill" onclick="kgDeleteEvent(${i})">Xóa</button></span>
+    </div>`).join('')}
+  </div>`;
+}
+function kgReadAdminForm(){
+  return {
+    area:admArea.value,
+    date:admDate.value||'New date',
+    time:admTime.value||'19:00 - 21:00',
+    place:admPlace.value||'Địa điểm mới',
+    map:admMap.value||'https://maps.google.com/',
+    address:admAddress.value||'Chưa cập nhật',
+    courts:+admCourts.value||3,
+    slot:+admSlot.value||18,
+    used:0,
+    male:+admMale.value||1000,
+    female:+admFemale.value||800,
+    status:'open',
+    note:admNote.value||'',
+    people:[],
+    wait:[]
+  };
+}
+function kgAddEvent(){
+  events.unshift(kgReadAdminForm());
+  kgSaveEvents();
+  render();
+  renderAdmin();
+  alert('Đã tạo lịch');
+}
+function kgEditEvent(i){
+  const e=events[i];
+  admArea.value=e.area; admPlace.value=e.place; admDate.value=e.date; admTime.value=e.time;
+  admAddress.value=e.address||''; admMap.value=e.map||''; admCourts.value=e.courts||3;
+  admSlot.value=e.slot||18; admMale.value=e.male||1000; admFemale.value=e.female||800; admNote.value=e.note||'';
+  const btn=document.querySelector('.panel .signup');
+  btn.textContent='Lưu lịch';
+  btn.onclick=function(){kgSaveEditEvent(i)};
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function kgSaveEditEvent(i){
+  const old=events[i];
+  const updated=kgReadAdminForm();
+  updated.people=old.people||[];
+  updated.wait=old.wait||[];
+  updated.used=old.used||updated.people.length;
+  updated.status=old.status||'open';
+  events[i]=updated;
+  kgSaveEvents();
+  render();
+  renderAdmin();
+  alert('Đã lưu lịch');
+}
+function kgDeleteEvent(i){
+  if(!confirm('Xóa lịch này?')) return;
+  events.splice(i,1);
+  kgSaveEvents();
+  render();
+  renderAdmin();
+}
+
 render();
 </script>
 </body>
