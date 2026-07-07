@@ -247,7 +247,7 @@ function card(e,i){
 
     const guestParts=[...p.matchAll(/Guest\s*(👨|👩)/g)];
     guestParts.forEach((m,idx)=>{
-      rows.push({name:idx===0?'Đi cùng':'Đi cùng '+(idx+1),gender:m[1]==='👩'?'Nữ':'Nam'});
+      rows.push({name:'Đi cùng '+mainName,gender:m[1]==='👩'?'Nữ':'Nam'});
     });
     return rows;
   }
