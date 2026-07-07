@@ -60,101 +60,49 @@
     @media(max-width:640px){.nav{align-items:flex-start;flex-wrap:wrap}.main-nav{order:3;margin-left:0;width:100%}.right{margin-left:auto;align-items:flex-end}.grid,.formgrid{grid-template-columns:1fr}.headrow{align-items:flex-start;flex-direction:column}.searchbar{grid-template-columns:1fr}.board{grid-template-columns:repeat(2,1fr)}.brand span{font-size:30px;font-weight:900;letter-spacing:.5px}.welcome{text-align:left}.welcome-actions{justify-content:flex-start}}
   select{appearance:auto;-webkit-appearance:menulist;background:#fff;cursor:pointer}
 
-.fb{display:inline-flex;align-items:center;justify-content:center;background:#fff!important;color:#1877F2!important;border-radius:999px;padding:4px!important;line-height:1;transition:transform .15s ease}
-.fb:hover{transform:scale(1.08)}
-.fb-icon{display:block}
-
-
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.stat{background:var(--soft);border:1px solid var(--line);border-radius:18px;padding:14px;font-weight:900;overflow:hidden}
-.stat b{display:block;font-size:22px;color:var(--orange2);word-break:break-word}
-.panel{background:#fff;border:1.5px solid var(--line);border-radius:24px;padding:16px;box-shadow:var(--shadow)}
-.tablewrap{overflow:auto}
-.table{width:100%;border-collapse:separate;border-spacing:0 8px}
-.table th{text-align:left;color:var(--muted);font-size:13px;white-space:nowrap}
-.table td{background:var(--soft);padding:10px;font-weight:850;white-space:nowrap}
-.table td:first-child{border-radius:12px 0 0 12px}
-.table td:last-child{border-radius:0 12px 12px 0}
-@media(max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}}
-
-
-.person{display:flex;justify-content:space-between;align-items:center;background:var(--soft);border-radius:12px;margin:6px 0;padding:8px 10px;font-size:13px;font-weight:850;gap:8px}
-.person.paid{background:#dcfce7}
-.person.unpaid{background:#fee2e2}
-.person.waiting{background:#fef3c7}
-.mini{border:0;border-radius:999px;background:var(--orange2);color:#fff;padding:5px 8px;font-weight:900;margin-left:4px}
-button:disabled{opacity:.55;cursor:not-allowed}
-
-
-.stat:nth-child(5),.stat:nth-child(6){background:#fff}
-
-
-/* Mobile polish */
-button,.auth,.pill,.btn{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
-.event,.panel,.contact,.welcome{transform:translateZ(0)}
-@media(max-width:640px){
-  .wrap{padding:14px 12px 34px}
-  .nav{gap:8px}
-  .brand span{font-size:22px}
-  .brand img{width:38px;height:38px}
-  .auth,.pill,.btn{padding:9px 12px}
-  .event{border-radius:18px;padding:14px}
-  .welcome{border-radius:22px;padding:20px 16px}
-  .welcome h1{font-size:26px}
-  .welcome p{font-size:15px}
-  .title{font-size:28px}
-  .formgrid{grid-template-columns:1fr!important}
-  .modal-card{border-radius:22px}
-}
-
-
-.statusline{margin:10px 0}
-.okbadge,.warnbadge,.fullbadge{display:inline-block;padding:8px 12px;border-radius:999px;font-weight:900}
-.okbadge{background:#dcfce7;color:#166534}
-.warnbadge{background:#fef3c7;color:#92400e}
-.fullbadge{background:#fee2e2;color:#991b1b}
-
-
-.venue-title{font-size:28px;font-weight:900;color:#ea580c;margin:6px 0}
-.event-date{font-size:18px;font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
-.info strong{color:#111827}
-
-
-.admin-money{background:#fff;border:1.5px solid #fed7aa;border-radius:16px;padding:10px;display:grid;gap:6px;font-weight:900;color:#7c2d12}
-.fb-small{display:inline-flex;vertical-align:middle;margin-left:6px;align-items:center}
-.person em{font-style:normal;background:#fff;border:1px solid #fed7aa;border-radius:999px;padding:2px 7px;margin-left:4px;color:#9a3412;font-size:12px}
-.paid-check{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-.paid-check input{width:auto;margin-right:4px}
-
-
-.fee-row{grid-column:1/-1;display:flex;gap:18px;flex-wrap:wrap;align-items:center;font-weight:900}
-.member-line{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-.stt{min-width:22px;display:inline-block;color:#ea580c}
-.member-name{font-weight:950}
-.fb-small{display:inline-flex;vertical-align:middle;align-items:center}
-.person em{font-style:normal;background:#fff;border:1px solid #fed7aa;border-radius:999px;padding:2px 7px;color:#9a3412;font-size:12px}
-.paid-check{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-.paid-check input{width:auto;margin-right:4px}
-
-
-.venue-title{font-size:28px!important;font-weight:950!important;color:#ea580c!important;margin:8px 0 4px!important;line-height:1.2}
-.event-date{font-size:18px!important;font-weight:900!important;margin-bottom:12px!important;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
-.fee-row{grid-column:1/-1;display:flex;gap:22px;flex-wrap:wrap;align-items:center;font-weight:950}
+.venue-title{font-size:30px!important;font-weight:950!important;color:#ea580c!important;margin:12px 0 6px!important}
+.event-date{font-size:18px!important;font-weight:900!important;margin-bottom:12px!important}
+.fee-row{grid-column:1/-1;display:flex;gap:22px;flex-wrap:wrap;font-weight:950}
 .admin-money{background:#fff;border:1.5px solid #fed7aa;border-radius:16px;padding:10px;display:grid;gap:6px;font-weight:900;color:#7c2d12;margin:10px 0}
+.statusline{margin:10px 0}.okbadge,.warnbadge,.fullbadge{display:inline-block;padding:8px 12px;border-radius:999px;font-weight:900}.okbadge{background:#dcfce7;color:#166534}.warnbadge{background:#fef3c7;color:#92400e}.fullbadge{background:#fee2e2;color:#991b1b}
+.person.paid{background:#dcfce7}.person.waiting{background:#fef3c7}.stt{min-width:22px;display:inline-block;color:#ea580c;font-weight:950}.fb-small{display:inline-flex;vertical-align:middle;margin-left:6px}.person em{font-style:normal;background:#fff;border:1px solid #fed7aa;border-radius:999px;padding:2px 7px;margin-left:4px;color:#9a3412;font-size:12px}.paid-check input{width:auto;margin-right:4px}
+
+
+
+
+
+.facebook-f-icon{
+  width:24px;
+  height:24px;
+  border-radius:50%;
+  background:#1877F2;
+  color:#fff;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:950;
+  font-family:Arial, sans-serif;
+  font-size:20px;
+  line-height:1;
+}
+.fb,.fb-icon{display:inline-flex;align-items:center;justify-content:center}
+
+
+.venue-title{font-size:30px!important;font-weight:950!important;color:#ea580c!important;margin:12px 0 6px!important}
+.event-date{font-size:18px!important;font-weight:900!important;margin-bottom:12px!important}
+.fee-row{grid-column:1/-1;display:flex;gap:22px;flex-wrap:wrap;font-weight:950}
+.slotline{font-weight:950;color:#374151;margin:10px 0}
 .statusline{margin:10px 0}
-.okbadge,.warnbadge,.fullbadge{display:inline-block;padding:8px 12px;border-radius:999px;font-weight:900}
-.okbadge{background:#dcfce7;color:#166534}
-.warnbadge{background:#fef3c7;color:#92400e}
-.fullbadge{background:#fee2e2;color:#991b1b}
-.stt{min-width:24px;display:inline-block;color:#ea580c;font-weight:950}
-.paid-check{display:flex;align-items:center;gap:6px}
+.okbadge,.fullbadge{display:inline-block;padding:8px 12px;border-radius:999px;font-weight:900}
+.okbadge{background:#dcfce7;color:#166534}.fullbadge{background:#fee2e2;color:#991b1b}
+.admin-money{background:#fff;border:1.5px solid #fed7aa;border-radius:16px;padding:10px;display:grid;gap:6px;font-weight:900;color:#7c2d12;margin:10px 0}
+.person.paid{background:#dcfce7}.person.waiting{background:#fef3c7}
+.stt{min-width:22px;display:inline-block;color:#ea580c;font-weight:950}
+.fb-small{display:inline-flex;vertical-align:middle;margin-left:6px}
+.person em{font-style:normal;background:#fff;border:1px solid #fed7aa;border-radius:999px;padding:2px 7px;margin-left:4px;color:#9a3412;font-size:12px}
 .paid-check input{width:auto;margin-right:4px}
 
 </style>
-
-<meta name="theme-color" content="#f97316">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Goodminton">
 </head>
 <body>
 <header class="top">
@@ -173,7 +121,7 @@ button,.auth,.pill,.btn{touch-action:manipulation;-webkit-tap-highlight-color:tr
           <button onclick="setLang('en')">🇬🇧 English</button>
         </div>
       </div>
-      <div class="auth-row" id="authRow">
+      <div class="auth-row">
         <button class="auth login" onclick="openModal('login')" data-i18n="login">Đăng nhập</button>
         <button class="auth signup" onclick="openModal('register')" data-i18n="register">Đăng ký</button>
       </div>
@@ -254,458 +202,57 @@ button,.auth,.pill,.btn{touch-action:manipulation;-webkit-tap-highlight-color:tr
     <h2>📞 Liên hệ Ban quản trị</h2>
     <p>Nếu cần hỗ trợ, hãy liên hệ trực tiếp với Ban quản trị.</p>
     <div class="board">
-      <div class="card"><div class="role">👑 Chủ Tịch</div><div class="name">Nguyễn Đức Xuân</div><a class="fb" href="https://www.facebook.com/share/1DB511BuWS/?mibextid=wwXIfr" target="_blank"><svg class="fb-icon" width="22" height="22" viewBox="0 0 24 24" aria-label="Facebook" role="img">
-  <path fill="#1877F2" d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073c0 6.019 4.388 11.01 10.125 11.927v-8.437H7.078v-3.49h3.047V9.41c0-3.007 1.792-4.669 4.533-4.669 1.313 0 2.686.235 2.686.235v2.953H15.83c-1.49 0-1.955.925-1.955 1.874v2.27h3.328l-.532 3.49h-2.796V24C19.612 23.083 24 18.092 24 12.073z"/>
-</svg></a></div>
-      <div class="card"><div class="role">🥈 Phó CT</div><div class="name">Nguyễn Ngọc Anh</div><a class="fb" href="https://www.facebook.com/share/1BW2P1vhTY/?mibextid=wwXIfr" target="_blank"><svg class="fb-icon" width="22" height="22" viewBox="0 0 24 24" aria-label="Facebook" role="img">
-  <path fill="#1877F2" d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073c0 6.019 4.388 11.01 10.125 11.927v-8.437H7.078v-3.49h3.047V9.41c0-3.007 1.792-4.669 4.533-4.669 1.313 0 2.686.235 2.686.235v2.953H15.83c-1.49 0-1.955.925-1.955 1.874v2.27h3.328l-.532 3.49h-2.796V24C19.612 23.083 24 18.092 24 12.073z"/>
-</svg></a></div>
-      <div class="card"><div class="role">🏸 Quản Lí Sân</div><div class="name">Hoài Thu</div><a class="fb" href="https://www.facebook.com/share/18tunvWfqV/?mibextid=wwXIfr" target="_blank"><svg class="fb-icon" width="22" height="22" viewBox="0 0 24 24" aria-label="Facebook" role="img">
-  <path fill="#1877F2" d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073c0 6.019 4.388 11.01 10.125 11.927v-8.437H7.078v-3.49h3.047V9.41c0-3.007 1.792-4.669 4.533-4.669 1.313 0 2.686.235 2.686.235v2.953H15.83c-1.49 0-1.955.925-1.955 1.874v2.27h3.328l-.532 3.49h-2.796V24C19.612 23.083 24 18.092 24 12.073z"/>
-</svg></a></div>
-      <div class="card"><div class="role">🛡️ Kiểm Duyệt</div><div class="name">Ngọc Ánh</div><a class="fb" href="https://www.facebook.com/share/1K2QeDwbPj/?mibextid=wwXIfr" target="_blank"><svg class="fb-icon" width="22" height="22" viewBox="0 0 24 24" aria-label="Facebook" role="img">
-  <path fill="#1877F2" d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073c0 6.019 4.388 11.01 10.125 11.927v-8.437H7.078v-3.49h3.047V9.41c0-3.007 1.792-4.669 4.533-4.669 1.313 0 2.686.235 2.686.235v2.953H15.83c-1.49 0-1.955.925-1.955 1.874v2.27h3.328l-.532 3.49h-2.796V24C19.612 23.083 24 18.092 24 12.073z"/>
-</svg></a></div>
-      <div class="card"><div class="role">🛡️ Kiểm Duyệt</div><div class="name">Lê Vân Anh</div><a class="fb" href="https://www.facebook.com/share/18x5wLaSSS/?mibextid=wwXIfr" target="_blank"><svg class="fb-icon" width="22" height="22" viewBox="0 0 24 24" aria-label="Facebook" role="img">
-  <path fill="#1877F2" d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073c0 6.019 4.388 11.01 10.125 11.927v-8.437H7.078v-3.49h3.047V9.41c0-3.007 1.792-4.669 4.533-4.669 1.313 0 2.686.235 2.686.235v2.953H15.83c-1.49 0-1.955.925-1.955 1.874v2.27h3.328l-.532 3.49h-2.796V24C19.612 23.083 24 18.092 24 12.073z"/>
-</svg></a></div>
+      <div class="card"><div class="role">👑 Chủ tịch</div><div class="name">Nguyễn Đức Xuân</div><a class="fb" href="https://www.facebook.com/share/1DB511BuWS/?mibextid=wwXIfr" target="_blank"><span class="facebook-f-icon" aria-label="Facebook">f</span></a></div>
+      <div class="card"><div class="role">🥈 Phó CT</div><div class="name">Nguyễn Ngọc Anh</div><a class="fb" href="https://www.facebook.com/share/1BW2P1vhTY/?mibextid=wwXIfr" target="_blank"><span class="facebook-f-icon" aria-label="Facebook">f</span></a></div>
+      <div class="card"><div class="role">🏸 Quản lý sân</div><div class="name">Hoài Thu</div><a class="fb" href="https://www.facebook.com/share/18tunvWfqV/?mibextid=wwXIfr" target="_blank"><span class="facebook-f-icon" aria-label="Facebook">f</span></a></div>
+      <div class="card"><div class="role">🛡️ Kiểm duyệt</div><div class="name">Ngọc Ánh</div><a class="fb" href="https://www.facebook.com/share/1K2QeDwbPj/?mibextid=wwXIfr" target="_blank"><span class="facebook-f-icon" aria-label="Facebook">f</span></a></div>
+      <div class="card"><div class="role">🛡️ Kiểm duyệt</div><div class="name">Lê Vân Anh</div><a class="fb" href="https://www.facebook.com/share/18x5wLaSSS/?mibextid=wwXIfr" target="_blank"><span class="facebook-f-icon" aria-label="Facebook">f</span></a></div>
     </div>
   </section>
 </main>
 
-<footer>🏸 Kawasaki Goodminton · Cảm ơn bạn đã ghé thăm CLB Kawasaki Goodminton · 📍 Shinagawa & Kawasaki, Japan<br>© 2026 Kawasaki Goodminton Club. All Rights Reserved. · Final</footer>
+<footer>🏸 Kawasaki Goodminton · Cảm ơn bạn đã ghé thăm CLB Kawasaki Goodminton · 📍 Shinagawa & Kawasaki, Japan<br>© 2026 Kawasaki Goodminton Club. All Rights Reserved.</footer>
 
 <div class="modal" id="modal"><div class="modal-card"><div style="display:flex;justify-content:space-between;align-items:center"><h2 id="modalTitle">Đăng nhập</h2><button class="pill" onclick="closeModal()">×</button></div><div id="modalBody"></div></div></div>
 
 <script>
-
-window.addEventListener('error', function(e){
-  console.log('KGM runtime warning:', e.message);
-});
-
 let currentArea='all';
 let events=[
- {area:'Kawasaki',date:'12/07/2026',time:'18:30 - 21:00',place:'南河原中学校',map:'https://maps.google.com/',courts:6,slot:36,used:28,male:1000,female:800,status:'open',people:['Nguyễn Đức Xuân 👨','Hoài Thu 👩','Steven 👨 + Guest 👩'],wait:['Nguyễn Văn A 👨']},
- {area:'Shinagawa',date:'13/07/2026',time:'19:00 - 21:00',place:'宮前小学校',map:'https://maps.google.com/',courts:3,slot:18,used:18,male:1000,female:800,status:'full',people:['Nguyễn Ngọc Anh 👨','Ngọc Ánh 👩','Lê Vân Anh 👩'],wait:['John Smith 👨','Trần Thị B 👩']},
- {area:'Shinagawa',date:'15/07/2026',time:'18:00 - 21:00',place:'小山台小学校',map:'https://maps.google.com/',courts:3,slot:24,used:14,male:1000,female:800,status:'open',people:['Mai Anh 👩','Hoàng Nam 👨'],wait:[]},
- {area:'Kawasaki',date:'25/07/2026',time:'18:30 - 21:00',place:'南河原中学校',map:'https://maps.google.com/',courts:6,slot:36,used:20,male:1200,female:1000,status:'open',people:['Linh 👩','Đạt 👨 + Guest 👨'],wait:[]},
+ {area:'Kawasaki',date:'12/07/2026',time:'18:30 - 21:00',place:'南河原中学校',map:'https://maps.google.com/',address:'幸区中幸町4-35-1 渡辺不動産',courts:6,slot:36,used:28,male:1000,female:800,status:'open',people:['Nguyễn Đức Xuân 👨','Hoài Thu 👩','Steven 👨 + Guest 👩'],wait:['Nguyễn Văn A 👨']},
+ {area:'Shinagawa',date:'13/07/2026',time:'19:00 - 21:00',place:'宮前小学校',map:'https://maps.google.com/',address:'東京都品川区',courts:3,slot:18,used:18,male:1000,female:800,status:'full',people:['Nguyễn Ngọc Anh 👨','Ngọc Ánh 👩','Lê Vân Anh 👩'],wait:['John Smith 👨','Trần Thị B 👩']},
+ {area:'Shinagawa',date:'15/07/2026',time:'18:00 - 21:00',place:'小山台小学校',map:'https://maps.google.com/',address:'東京都品川区',courts:3,slot:24,used:14,male:1000,female:800,status:'open',people:['Mai Anh 👩','Hoàng Nam 👨'],wait:[]},
+ {area:'Kawasaki',date:'25/07/2026',time:'18:30 - 21:00',place:'南河原中学校',map:'https://maps.google.com/',address:'幸区中幸町4-35-1 渡辺不動産',courts:6,slot:36,used:20,male:1200,female:1000,status:'open',people:['Linh 👩','Đạt 👨 + Guest 👨'],wait:[]},
  {area:'Shinagawa',date:'05/07/2026',time:'19:00 - 21:00',place:'上神明小学校',map:'https://maps.google.com/',courts:3,slot:18,used:18,male:1000,female:800,status:'ended',people:['Đức Xuân 👨','Hoài Thu 👩','Ngọc Anh 👨'],wait:[]}
 ];
 function status(e){if(e.status==='ended')return '<span class="status done">Đã kết thúc</span>';if(e.status==='full')return '<span class="status full">Đã đầy - Chờ</span>';const r=e.slot-e.used;if(r<=3)return `<span class="status warn">Chỉ còn ${r} chỗ</span>`;return `<span class="status ok">Còn ${r} chỗ</span>`}
-function card(e,i){const pct=Math.min(100,Math.round(e.used/e.slot*100));return `<article class="event ${e.status==='ended'?'ended':''}"><div class="topline"><span class="area">${e.area}</span>${status(e)}</div><h3>🏸 ${e.date}</h3><div class="info"><div>🕒 ${e.time}</div><div>📍 ${e.place}</div><a class="map" href="${e.map}" target="_blank">🗺️ Google Maps</a><div>🏸 ${e.courts} sân · 👥 ${e.used}/${e.slot}</div></div><div class="slot"><span style="width:${pct}%"></span></div><div class="fee"><div class="fee-title">💴 Phí dự kiến</div><div>👨 Nam: ${e.male}¥</div><div>👩 Nữ: ${e.female}¥</div></div><div class="actions"><button class="btn reg" onclick="openModal('needLogin')">${e.status==='full'?'Đăng ký chờ':'Đăng ký'}</button><button class="btn list" onclick="toggleList(${i})">Xem danh sách</button></div><div class="listbox" id="list-${i}"><b>Danh sách đăng ký</b>${e.people.map(p=>`<div class="person"><span>${p}</span><span>✅</span></div>`).join('')}${e.wait.length?`<div class="wait"><b>Danh sách chờ</b>${e.wait.map(p=>`<div class="person"><span>${p}</span><span>🟡</span></div>`).join('')}</div>`:''}</div></article>`}
+function moneyExpected(e){return (e.people||[]).length*(e.male||1000)}
+function moneyPaid(e){return moneyExpected(e)}
+function fbSvg(){return `<svg width="18" height="18" viewBox="0 0 24 24"><path fill="#1877F2" d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073c0 6.019 4.388 11.01 10.125 11.927v-8.437H7.078v-3.49h3.047V9.41c0-3.007 1.792-4.669 4.533-4.669 1.313 0 2.686.235 2.686.235v2.953H15.83c-1.49 0-1.955.925-1.955 1.874v2.27h3.328l-.532 3.49h-2.796V24C19.612 23.083 24 18.092 24 12.073z"/></svg>`}
+function memberRow(p,i,wait){const gender=p.includes('👩')?'Nữ':'Nam';return `<div class="person ${wait?'waiting':'paid'}"><span><b class="stt">${i+1}.</b> ${p} <em>${gender}</em> <span class="fb-small">${fbSvg()}</span></span><span class="paid-check"><label><input type="checkbox" ${wait?'':'checked'}> Đã đóng</label></span></div>`}
+
+function card(e,i){const pct=Math.min(100,Math.round(e.used/e.slot*100));const left=e.slot-e.used;const exp=getExpected(e);const paid=getPaid(e);return `<article class="event ${e.status==='ended'?'ended':''}"><div class="topline"><span class="area">${e.area}</span>${status(e)}</div><h3 class="venue-title">📍 ${e.place}</h3><div class="event-date">📅 ${e.date} &nbsp;&nbsp; 🕒 ${e.time}</div><div class="info"><div><strong>Địa chỉ:</strong><br>${e.address||'Chưa cập nhật'}</div><a class="map" href="${e.map}" target="_blank">🗺️ Google Map</a><div>🏸 ${e.courts} sân</div></div><div class="slot"><span style="width:${pct}%"></span></div><div class="fee"><div class="fee-title">💴 Phí dự kiến:</div><div class="fee-row"><span>👨 Nam: <b>${e.male}¥</b></span><span>👩 Nữ: <b>${e.female}¥</b></span></div></div><div class="slotline">👥 Slot: ${e.used} / ${e.slot}</div><div class="statusline">${left<=0?'<span class="fullbadge">🔴 Đã đầy - Đăng ký chờ</span>':`<span class="okbadge">🟢 Còn ${left} chỗ</span>`}</div>${e.note?`<div class="note">📝 ${e.note}</div>`:''}<div class="admin-money"><div><b>💰 Tổng dự kiến thu:</b> ${exp.toLocaleString()}¥</div><div><b>✅ Đã thu thực tế:</b> ${paid.toLocaleString()}¥</div><div><b>❌ Còn lại chưa thu:</b> ${(exp-paid).toLocaleString()}¥</div></div><div class="actions"><button class="btn reg" onclick="openModal('needLogin')">${e.status==='full'?'Đăng ký chờ':'Đăng ký'}</button><button class="btn list" onclick="toggleList(${i})">Xem danh sách</button></div><div class="listbox" id="list-${i}"><b>Danh sách đăng ký</b>${e.people.map((p,n)=>memberRow(p,n,false)).join('')}${e.wait.length?`<div class="wait"><b>Danh sách chờ</b>${e.wait.map((p,n)=>memberRow(p,n,true)).join('')}</div>`:''}</div></article>`}
+
 function render(){const q=(document.getElementById('q')?.value||'').toLowerCase();const list=events.filter(e=>(currentArea==='all'||e.area===currentArea)&&(e.place.toLowerCase().includes(q)||e.date.includes(q)||e.area.toLowerCase().includes(q)));document.getElementById('upcoming').innerHTML=list.filter(e=>e.status!=='ended').map(card).join('');document.getElementById('ended').innerHTML=list.filter(e=>e.status==='ended').map(card).join('')}
 function filter(area,btn){currentArea=area;document.querySelectorAll('.filters .pill').forEach(b=>b.classList.remove('active'));btn.classList.add('active');render()}
 function toggleList(i){document.getElementById('list-'+i).classList.toggle('show')}
-function page(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.navbtn').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');if(id==='admin')renderKgAdminPanel();window.scrollTo({top:0,behavior:'smooth'})}
+function page(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.navbtn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');window.scrollTo({top:0,behavior:'smooth'})}
 function toggleLang(){document.getElementById('langMenu').classList.toggle('show')}
-function openModal(type){
-  const m=document.getElementById('modal');
-  const t=document.getElementById('modalTitle');
-  const b=document.getElementById('modalBody');
-  if(type==='login'){
-    t.textContent='Đăng nhập';
-    b.innerHTML=`
-      <label>Gmail hoặc số điện thoại</label>
-      <input id="loginId" placeholder="admin@gmail.com">
-      <label>Mật khẩu</label>
-      <input id="loginPw" type="password" placeholder="admin123">
-      <br><br>
-      <button class="auth signup" onclick="loginNow()">Đăng nhập</button>
-      <button class="auth login" onclick="alert('Tính năng quên mật khẩu sẽ được làm ở bản sau.')">Quên mật khẩu</button>
-      <p style="color:#6b7280;font-weight:800">Admin mẫu: fantasticc898@gmail.com / admin123</p>
-    `;
-  }
-  if(type==='register'){
-    t.textContent='Đăng ký tài khoản';
-    b.innerHTML=`
-      <div class="formgrid">
-        <div><label>Họ và tên</label><input id="regName" placeholder="Nguyễn Văn A"></div>
-        <div><label>Giới tính</label><select id="regGender"><option value="Nam">Nam</option><option value="Nữ">Nữ</option></select></div>
-        <div><label>Gmail</label><input id="regEmail" placeholder="example@gmail.com"></div>
-        <div><label>Link Facebook cá nhân</label><input id="regFacebook" placeholder="https://facebook.com/ten-cua-ban"></div>
-        <div><label>Mật khẩu</label><input id="regPw" type="password" placeholder="Tối thiểu 6 ký tự"></div>
-      </div>
-      <br>
-      <button class="auth signup" onclick="registerNow()">Tạo tài khoản</button>
-    `;
-  }
-  if(type==='needLogin'){
-    t.textContent='Cần đăng nhập';
-    b.innerHTML=`
-      <p>Bạn cần đăng nhập hoặc tạo tài khoản để đăng ký lịch chơi.</p>
-      <button class="auth signup" onclick="openModal('login')">Đăng nhập</button>
-      <button class="auth login" onclick="openModal('register')">Đăng ký</button>
-    `;
-  }
-  m.classList.add('show');
-}
-
+function openModal(type){const m=document.getElementById('modal'),t=document.getElementById('modalTitle'),b=document.getElementById('modalBody');if(type==='login'){t.textContent='Đăng nhập';b.innerHTML=`<label>Gmail</label><input placeholder="example@gmail.com"><label>Mật khẩu</label><input type="password" placeholder="Mật khẩu"><br><br><button class="auth signup">Đăng nhập</button>`}if(type==='register'){
+  t.textContent='Đăng ký tài khoản';
+  b.innerHTML=`<div class="formgrid">
+    <div><label>Họ và tên</label><input></div>
+    <div><label>Giới tính</label><select><option>Nam</option><option>Nữ</option></select></div>
+    <div><label>Gmail</label><input></div>
+    <div><label>Link Facebook cá nhân</label><input></div>
+    <div><label>Mật khẩu</label><input type="password"></div>
+  </div><br><button class="auth signup">Tạo tài khoản</button>`;
+}if(type==='needLogin'){t.textContent='Cần đăng nhập';b.innerHTML=`<p>Bạn cần đăng nhập hoặc tạo tài khoản để đăng ký lịch chơi.</p><button class="auth signup" onclick="openModal('login')">Đăng nhập</button> <button class="auth login" onclick="openModal('register')">Đăng ký</button>`}m.classList.add('show')}
 function closeModal(){document.getElementById('modal').classList.remove('show')}
 function makePreview(){document.getElementById('preview').innerHTML=`<b>🏸 ${document.getElementById('newDate').value||'Ngày chơi'}</b><br>🕒 ${document.getElementById('newTime').value||'19:00 - 21:00'}<br>📍 ${document.getElementById('newPlace').value||'Địa điểm'}<br>🏸 ${document.getElementById('newCourts').value} sân · 👥 ${document.getElementById('newSlot').value} slot<br>💴 Phí dự kiến: Nam ${document.getElementById('newMale').value}¥ / Nữ ${document.getElementById('newFemale').value}¥`}
 function addEvent(){events.unshift({area:document.getElementById('newArea').value,date:document.getElementById('newDate').value||'New date',time:document.getElementById('newTime').value||'19:00 - 21:00',place:document.getElementById('newPlace').value||'Địa điểm mới',map:document.getElementById('newMap').value||'https://maps.google.com/',courts:+document.getElementById('newCourts').value,slot:+document.getElementById('newSlot').value,used:0,male:+document.getElementById('newMale').value,female:+document.getElementById('newFemale').value,status:'open',people:[],wait:[]});alert('Đã tạo lịch demo. Quay lại Lịch chơi để xem.')}
 const dict={vi:{label:'🇻🇳 Tiếng Việt ▼',navSchedule:'Lịch chơi',navAbout:'Giới thiệu',login:'Đăng nhập',register:'Đăng ký',registerMember:'Đăng ký thành viên',welcome:'✨ Chào mừng bạn đến với Câu lạc bộ cầu lông Kawasaki Goodminton',tagline:'“Nơi kết nối đam mê – Gắn kết cộng đồng người Việt tại Nhật Bản.”',guestNote:'🔓 Bạn vẫn có thể xem lịch chơi và danh sách đăng ký mà không cần đăng nhập.',scheduleTitle:'📅 Lịch chơi sắp diễn ra',scheduleSub:'Mở web là xem lịch, chọn sân và đăng ký nhanh.',all:'Tất cả',endedTitle:'Lịch đã kết thúc'},en:{label:'🇬🇧 English ▼',navSchedule:'Schedule',navAbout:'About',login:'Login',register:'Register',registerMember:'Register as member',welcome:'✨ Welcome to Kawasaki Goodminton Badminton Club',tagline:'“Connecting passion – Building the Vietnamese community in Japan.”',guestNote:'🔓 You can view schedules and registration lists without logging in.',scheduleTitle:'📅 Upcoming Games',scheduleSub:'Open the website, check events, and register quickly.',all:'All',endedTitle:'Finished Events'},ja:{label:'🇯🇵 日本語 ▼',navSchedule:'スケジュール',navAbout:'紹介',login:'ログイン',register:'登録',registerMember:'メンバー登録',welcome:'✨ Kawasaki Goodminton バドミントンクラブへようこそ',tagline:'「情熱をつなぎ、日本のベトナム人コミュニティを結びます。」',guestNote:'🔓 ログインしなくてもスケジュールと登録リストを確認できます。',scheduleTitle:'📅 今後のスケジュール',scheduleSub:'開いてすぐ予定を確認し、簡単に登録できます。',all:'すべて',endedTitle:'終了した予定'}}
 function setLang(lang){document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(dict[lang][k])el.textContent=dict[lang][k]});document.getElementById('langLabel').textContent=dict[lang].label;document.getElementById('langMenu').classList.remove('show')}
-
-const KG_ADMIN_EMAIL='fantasticc898@gmail.com';
-let kgUsers=JSON.parse(localStorage.getItem('kg_users')||'null')||[
-  {name:'Nguyễn Đức Xuân',gender:'Nam',birth:'',nation:'Việt Nam',phone:'',email:KG_ADMIN_EMAIL,facebook:'https://www.facebook.com/share/1DB511BuWS/?mibextid=wwXIfr',password:'admin123',role:'super_admin',status:'active'}
-];
-let kgCurrent=JSON.parse(localStorage.getItem('kg_current')||'null');
-
-function saveAuth(){
-  localStorage.setItem('kg_users',JSON.stringify(kgUsers));
-  localStorage.setItem('kg_current',JSON.stringify(kgCurrent));
-}
-function syncAuth(){
-  const row=document.getElementById('authRow');
-  if(!row) return;
-  if(kgCurrent){
-    row.innerHTML=`<button class="auth login" onclick="openProfile()">👤 ${kgCurrent.name}</button><button class="auth signup" onclick="logoutNow()">Đăng xuất</button>`;
-  }else{
-    row.innerHTML=`<button class="auth login" onclick="openModal('login')" data-i18n="login">Đăng nhập</button><button class="auth signup" onclick="openModal('register')" data-i18n="register">Đăng ký</button>`;
-  }
-}
-function loginNow(){
-  const id=document.getElementById('loginId').value.trim();
-  const pw=document.getElementById('loginPw').value;
-  const u=kgUsers.find(x=>(x.email===id||x.phone===id)&&x.password===pw);
-  if(!u) return alert('Sai thông tin đăng nhập');
-  if(u.status==='locked') return alert('Tài khoản đang bị khóa');
-  kgCurrent=u;
-  saveAuth();
-  closeModal();
-  
-function kgGenderCount(e){
-  let male=0, female=0;
-  (e.registrations||[]).forEach(r=>{
-    if(r.gender==='Nữ') female++; else male++;
-    male += (+r.guestMale||0);
-    female += (+r.guestFemale||0);
-  });
-  return {male,female,total:male+female};
-}
-
-
-function kgRegFee(e,r){
-  const mainFee = r.gender==='Nữ' ? e.femaleFee : e.maleFee;
-  return mainFee + ((+r.guestMale||0)*e.maleFee) + ((+r.guestFemale||0)*e.femaleFee);
-}
-
-function kgExpectedRevenue(e){
-  return (e.registrations||[]).reduce((s,r)=>{
-    const mainFee = r.gender==='Nữ' ? e.femaleFee : e.maleFee;
-    return s + mainFee + ((+r.guestMale||0)*e.maleFee) + ((+r.guestFemale||0)*e.femaleFee);
-  },0);
-}
-
-function kgRemainingRevenue(e){
-  return kgExpectedRevenue(e)-kgPaidRevenue(e);
-}
-
-function kgPaidRevenue(e){
-  return (e.registrations||[]).reduce((s,r)=>{
-    if(!r.paid) return s;
-    const mainFee = r.gender==='Nữ' ? e.femaleFee : e.maleFee;
-    return s + mainFee + ((+r.guestMale||0)*e.maleFee) + ((+r.guestFemale||0)*e.femaleFee);
-  },0);
-}
-
-function kgRevenue(e){
-  return (e.registrations||[]).reduce((s,r)=>{
-    const main = r.gender==='Nữ' ? e.femaleFee : e.maleFee;
-    return s + (r.paid ? main + ((+r.guestMale||0)*e.maleFee) + ((+r.guestFemale||0)*e.femaleFee) : 0);
-  },0);
-}
-function kgUnpaid(e){
-  return (e.registrations||[]).filter(r=>!r.paid).length;
-}
-function renderKgAdminPanel(){
-  if(!isKgAdmin()){
-    alert('Chỉ Admin mới xem được trang này.');
-    return;
-  }
-  const adminPage=document.getElementById('admin');
-  if(!adminPage) return;
-  const totalPeople=kgEvents.reduce((s,e)=>s+kgCount(e),0);
-  const totalRevenue=kgEvents.reduce((s,e)=>s+kgExpectedRevenue(e),0);
-  const totalUnpaid=kgEvents.reduce((s,e)=>s+kgUnpaid(e),0);
-  adminPage.innerHTML=`
-    <div class="headrow"><div><h2 class="title">👑 Admin Dashboard</h2><div class="sub">Quản lý Kawasaki Goodminton</div></div></div>
-    <div class="stats">
-      <div class="stat"><b>${kgUsers.length}</b>Thành viên</div>
-      <div class="stat"><b>${kgEvents.length}</b>Lịch chơi</div>
-      <div class="stat"><b>${totalPeople}</b>Người đăng ký</div>
-      <div class="stat"><b>${kgEvents.reduce((s,e)=>s+(e.waitlist||[]).length,0)}</b>Danh sách chờ</div>
-      <div class="stat"><b>${totalRevenue.toLocaleString()}¥</b>Dự kiến thu</div>
-      <div class="stat"><b>${totalUnpaid}</b>Chưa đóng</div>
-    </div>
-    <div class="filters" style="margin-top:16px">
-      <button class="pill active" onclick="renderKgMembers()">Thành viên</button>
-      <button class="pill" onclick="renderKgEventAdmin()">Tạo/Sửa lịch</button>
-      <button class="pill" onclick="renderKgPayments()">Đóng phí</button>
-      <button class="pill" onclick="renderKgReport()">Báo cáo</button>
-    </div>
-    <div class="actions" style="margin:12px 0"><button class="pill" onclick="exportKgCSV()">Xuất CSV</button><button class="pill" onclick="clearDemoData()">Xóa dữ liệu demo</button></div>
-    <div id="kgAdminBody"></div>
-  `;
-  renderKgMembers();
-}
-function renderKgReport(){
-  document.getElementById('kgAdminBody').innerHTML=`
-    <div class="panel" style="margin-top:16px">
-      <h2>📊 Báo cáo từng lịch chơi</h2>
-      <div class="tablewrap">
-        <table class="table">
-          <thead><tr><th>Ngày</th><th>Địa điểm</th><th>Nam</th><th>Nữ</th><th>Tổng</th><th>Chờ</th><th>Dự kiến thu</th><th>Đã thu</th><th>Chưa đóng</th></tr></thead>
-          <tbody>
-            ${kgEvents.map(e=>{
-              const g=kgGenderCount(e);
-              return `<tr><td>${e.date}</td><td>${e.place}</td><td>${g.male}</td><td>${g.female}</td><td>${g.total}/${e.slot}</td><td>${(e.waitlist||[]).length}</td><td>${kgExpectedRevenue(e).toLocaleString()}¥</td><td>${kgPaidRevenue(e).toLocaleString()}¥</td><td>${kgUnpaid(e)}</td></tr>`
-            }).join('')}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  `;
-}
-
-syncAuth();
-}
-function registerNow(){
-  const u={
-    name:document.getElementById('regName').value.trim(),
-    gender:document.getElementById('regGender').value,
-    email:document.getElementById('regEmail').value.trim(),
-    facebook:document.getElementById('regFacebook').value.trim(),
-    password:document.getElementById('regPw').value,
-    role:'member',
-    status:'active'
-  };
-  if(!u.name||!u.email||!u.facebook||!u.password) return alert('Vui lòng nhập đầy đủ Họ tên, Gmail, Link Facebook và Mật khẩu');
-  if(kgUsers.some(x=>x.email===u.email)) return alert('Gmail này đã được đăng ký');
-  if(u.email===KG_ADMIN_EMAIL) u.role='super_admin';
-  kgUsers.push(u);
-  kgCurrent=u;
-  saveAuth();
-  closeModal();
-  syncAuth();
-}
-function logoutNow(){
-  kgCurrent=null;
-  saveAuth();
-  syncAuth();
-}
-
-
-
-let kgEvents=JSON.parse(localStorage.getItem('kg_events2')||'null')||[
-  {id:'e1',area:'Shinagawa',date:'13/07/2026',time:'19:00 - 21:00',place:'宮前小学校',address:'',maps:'https://maps.google.com/',courts:3,slot:18,maleFee:1000,femaleFee:800,registrations:[],waitlist:[]},
-  {id:'e2',area:'Kawasaki',date:'12/07/2026',time:'18:30 - 21:00',place:'南河原中学校',address:'',maps:'https://maps.google.com/',courts:6,slot:36,maleFee:1000,femaleFee:800,registrations:[],waitlist:[]}
-];
-function saveEvents(){localStorage.setItem('kg_events2',JSON.stringify(kgEvents))}
-function kgCount(e){return (e.registrations||[]).reduce((s,r)=>s+1+(+r.guestMale||0)+(+r.guestFemale||0),0)}
-function kgJoined(e){return kgCurrent&&[...(e.registrations||[]),...(e.waitlist||[])].some(r=>r.email===kgCurrent.email)}
-function renderLiveEvents(){
-  const grid=document.getElementById('eventsGrid')||document.getElementById('upcoming');
-  if(!grid) return;
-  grid.innerHTML=kgEvents.map(e=>{
-    const c=kgCount(e), left=e.slot-c, full=left<=0;
-    return `<article class="event">
-      <div class="topline"><span class="area">${e.area}</span><span class="status ${full?'full':'ok'}">${full?'Đầy - Chờ':'Còn '+left+' chỗ'}</span></div>
-      <h3 class="venue-title">📍 ${e.place}</h3>
-      <div class="event-date">📅 ${e.date} &nbsp;&nbsp; 🕒 ${e.time}</div>
-      <div class="info">
-      <div><strong>Địa chỉ:</strong><br>${e.address||'Chưa cập nhật'}</div>
-      <a class="map" href="${e.maps}" target="_blank">🗺️ Google Map</a><div>🏸 ${e.courts} sân · 👥 ${c}/${e.slot}</div></div>
-      <div class="fee">
-<div class="fee-title">💴 Phí tham gia dự kiến</div>
-<div class="fee-row"><span>👨 Nam: <b>${e.maleFee}¥</b></span><span>👩 Nữ: <b>${e.femaleFee}¥</b></span></div>
-</div>
-${isKgAdmin()?`<div class="admin-money">
-  <div><b>💰 Tổng dự kiến thu:</b> ${kgExpectedRevenue(e).toLocaleString()}¥</div>
-  <div><b>✅ Đã thu thực tế:</b> ${kgPaidRevenue(e).toLocaleString()}¥</div>
-  <div><b>❌ Còn lại chưa thu:</b> ${kgRemainingRevenue(e).toLocaleString()}¥</div>
-</div>`:""}
-<div class="statusline">
-${left<=0?'<span class="fullbadge">🔴 Đã đầy - Đăng ký chờ</span>':(left<=5?`<span class="warnbadge">🟠 Sắp đầy (còn ${left} chỗ)</span>`:`<span class="okbadge">🟢 Còn ${left} chỗ</span>`)}
-</div>
-${e.note?`<div class="note">📝 ${e.note}</div>`:""}
-      <div class="actions"><button class="btn reg" onclick="openJoinEvent('${e.id}')" ${kgJoined(e)?'disabled':''}>${kgJoined(e)?'Đã đăng ký':(full?'Đăng ký chờ':'Đăng ký')}</button><button class="btn list" onclick="toggleKgList('${e.id}')">Danh sách</button></div>
-      <div class="listbox" id="kglist-${e.id}" style="display:none">
-        <b>Danh sách đăng ký</b>
-        ${(e.registrations||[]).map((r,i)=>kgPerson(e,r,false,i+1)).join('')||'<p>Chưa có ai đăng ký.</p>'}
-        ${(e.waitlist||[]).length?'<b>Danh sách chờ</b>'+(e.waitlist||[]).map((r,i)=>kgPerson(e,r,true,i+1)).join(''):''}
-      </div>
-      ${isKgAdmin()?`<div class="actions"><button class="btn list" onclick="editKgEvent('${e.id}')">Sửa</button><button class="btn reg" onclick="deleteKgEvent('${e.id}')">Xóa</button></div>`:''}
-    </article>`
-  }).join('');
-}
-
-function kgFbIcon(url){
-  if(!url) return '';
-  return `<a class="fb-small" href="${url}" target="_blank" title="Facebook">
-    <svg width="18" height="18" viewBox="0 0 24 24" aria-label="Facebook"><path fill="#1877F2" d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073c0 6.019 4.388 11.01 10.125 11.927v-8.437H7.078v-3.49h3.047V9.41c0-3.007 1.792-4.669 4.533-4.669 1.313 0 2.686.235 2.686.235v2.953H15.83c-1.49 0-1.955.925-1.955 1.874v2.27h3.328l-.532 3.49h-2.796V24C19.612 23.083 24 18.092 24 12.073z"/></svg>
-  </a>`;
-}
-function kgFindUser(email){return kgUsers.find(u=>u.email===email)||{};}
-
-function kgPerson(e,r,wait,no){
-  const u=kgFindUser(r.email);
-  const gender=r.gender||u.gender||'';
-  const fb=u.facebook||r.facebook||'';
-  return `<div class="person ${wait?'waiting':(isKgAdmin()?(r.paid?'paid':'unpaid'):'')}">
-    <span class="member-line"><b class="stt">${no||''}.</b> <span class="member-name">${r.name}</span> <em>${gender}</em> ${kgFbIcon(fb)} ${r.guestMale?'· 👨+'+r.guestMale:''} ${r.guestFemale?'· 👩+'+r.guestFemale:''}</span>
-    ${isKgAdmin()?`<span class="paid-check"><label><input type="checkbox" ${r.paid?'checked':''} onchange="toggleKgPaid('${e.id}','${r.email}')"> Đã đóng</label><button class="mini" onclick="removeKgReg('${e.id}','${r.email}',${wait})">Hủy</button></span>`:''}
-  </div>`
-}
-function toggleKgList(id){const el=document.getElementById('kglist-'+id);if(el)el.style.display=el.style.display==='none'?'block':'none'}
-function openJoinEvent(id){
-  if(!kgCurrent) return openModal('login');
-  const e=kgEvents.find(x=>x.id===id);
-  if(kgJoined(e)) return alert('Bạn đã đăng ký lịch này rồi');
-  const m=document.getElementById('modal'),t=document.getElementById('modalTitle'),b=document.getElementById('modalBody');
-  t.textContent='Đăng ký tham gia';
-  b.innerHTML=`<label>Guest Nam</label><input id="jgMale" type="number" min="0" value="0"><label>Guest Nữ</label><input id="jgFemale" type="number" min="0" value="0"><br><br><button class="auth signup" onclick="joinKgEvent('${id}')">Xác nhận đăng ký</button><p style="color:#6b7280;font-weight:800">Thành viên không tự hủy sau khi đăng ký. Muốn hủy vui lòng liên hệ Ban quản trị.</p>`;
-  m.classList.add('show');
-}
-function joinKgEvent(id){
-  const e=kgEvents.find(x=>x.id===id);
-  const reg={name:kgCurrent.name,email:kgCurrent.email,gender:kgCurrent.gender,facebook:kgCurrent.facebook,guestMale:+document.getElementById('jgMale').value||0,guestFemale:+document.getElementById('jgFemale').value||0,paid:false,createdAt:new Date().toISOString()};
-  if(kgCount(e)+1+reg.guestMale+reg.guestFemale<=e.slot)e.registrations.push(reg);else e.waitlist.push(reg);
-  saveEvents();closeModal();renderLiveEvents();renderKgAdminPanel();
-}
-function toggleKgPaid(id,email){const e=kgEvents.find(x=>x.id===id);const r=e.registrations.find(x=>x.email===email);if(r)r.paid=!r.paid;saveEvents();renderLiveEvents();renderKgAdminPanel();}
-function removeKgReg(id,email,wait){const e=kgEvents.find(x=>x.id===id);if(wait)e.waitlist=e.waitlist.filter(r=>r.email!==email);else e.registrations=e.registrations.filter(r=>r.email!==email);while(e.waitlist.length&&kgCount(e)<e.slot){let n=e.waitlist[0], add=1+n.guestMale+n.guestFemale;if(kgCount(e)+add<=e.slot)e.registrations.push(e.waitlist.shift());else break}saveEvents();renderLiveEvents();renderKgAdminPanel();}
-function kgEventForm(e){
-  e=e||{id:'',area:'Shinagawa',date:'',time:'19:00 - 21:00',place:'',address:'',maps:'https://maps.google.com/',courts:3,slot:18,maleFee:1000,femaleFee:800,note:''};
-  return `<div class="panel" style="margin-top:16px"><h2>${e.id?'Sửa lịch':'Tạo lịch'}</h2><div class="formgrid"><input id="keDate" placeholder="Ngày" value="${e.date}"><input id="keTime" placeholder="Giờ" value="${e.time}"><select id="keArea"><option ${e.area==='Shinagawa'?'selected':''}>Shinagawa</option><option ${e.area==='Kawasaki'?'selected':''}>Kawasaki</option></select><input id="kePlace" placeholder="Tên sân (VD: 南河原中学校)" value="${e.place}"><input id="keAddress" placeholder="Địa chỉ sân" value="${e.address||''}"><input id="keMaps" placeholder="Link Google Map" value="${e.maps||'https://maps.google.com/'}"><input id="keCourts" type="number" placeholder="Số sân" value="${e.courts}"><input id="keSlot" type="number" placeholder="Slot" value="${e.slot}"><input id="keMale" type="number" placeholder="Phí Nam" value="${e.maleFee}"><input id="keFemale" type="number" placeholder="Phí Nữ" value="${e.femaleFee}"><textarea id="keNote" placeholder="Ghi chú về sân, lối vào, điều hòa, mượn vợt...">${e.note||''}</textarea></div><br><button class="auth signup" onclick="saveKgEvent('${e.id}')">${e.id?'Lưu sửa':'Tạo lịch'}</button></div>`
-}
-function saveKgEvent(id){
-  const data={id:id||'e'+Date.now(),area:keArea.value,date:keDate.value,time:keTime.value,place:kePlace.value,address:keAddress.value.trim(),maps:keMaps.value.trim()||('https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(keAddress.value.trim())),courts:+keCourts.value,slot:+keSlot.value,maleFee:+keMale.value,femaleFee:+keFemale.value,note:keNote.value.trim(),registrations:[],waitlist:[]};
-  if(!data.date||!data.place)return alert('Nhập ngày và địa điểm');
-  const i=kgEvents.findIndex(e=>e.id===id);
-  if(i>=0){data.registrations=kgEvents[i].registrations||[];data.waitlist=kgEvents[i].waitlist||[];kgEvents[i]=data}else kgEvents.unshift(data);
-  saveEvents();renderLiveEvents();renderKgAdminPanel();
-}
-function editKgEvent(id){const e=kgEvents.find(x=>x.id===id);document.getElementById('adminContent').innerHTML=kgEventForm(e)}
-function deleteKgEvent(id){if(confirm('Xóa lịch này?')){kgEvents=kgEvents.filter(e=>e.id!==id);saveEvents();renderLiveEvents();renderKgAdminPanel();}}
-
-
-function openProfile(){
-  if(!kgCurrent) return openModal('login');
-  const m=document.getElementById('modal'),t=document.getElementById('modalTitle'),b=document.getElementById('modalBody');
-  t.textContent='Hồ sơ cá nhân';
-  b.innerHTML=`
-    <div class="formgrid">
-      <div><label>Họ và tên</label><input id="pfName" value="${kgCurrent.name||''}"></div>
-      <div><label>Giới tính</label><select id="pfGender"><option ${kgCurrent.gender==='Nam'?'selected':''}>Nam</option><option ${kgCurrent.gender==='Nữ'?'selected':''}>Nữ</option></select></div>
-      <div><label>Gmail</label><input id="pfEmail" value="${kgCurrent.email||''}" disabled></div>
-      <div><label>Link Facebook cá nhân</label><input id="pfFacebook" value="${kgCurrent.facebook||''}"></div>
-      <div><label>Mật khẩu mới</label><input id="pfPassword" type="password" placeholder="Bỏ trống nếu không đổi"></div>
-    </div>
-    <br>
-    <button class="auth signup" onclick="saveProfile()">Lưu hồ sơ</button>
-  `;
-  m.classList.add('show');
-}
-function saveProfile(){
-  const i=kgUsers.findIndex(u=>u.email===kgCurrent.email);
-  if(i<0) return;
-  kgUsers[i].name=document.getElementById('pfName').value.trim();
-  kgUsers[i].gender=document.getElementById('pfGender').value;
-  kgUsers[i].facebook=document.getElementById('pfFacebook').value.trim();
-  const pw=document.getElementById('pfPassword').value;
-  if(pw) kgUsers[i].password=pw;
-  kgCurrent=kgUsers[i];
-  saveAuth();
-  closeModal();
-  syncAuth();
-  alert('Đã lưu hồ sơ');
-}
-function exportKgCSV(){
-  if(!isKgAdmin()) return;
-  let rows=[['Lich','Dia diem','Ho ten','Email','Guest Nam','Guest Nu','Da dong']];
-  kgEvents.forEach(e=>{
-    (e.registrations||[]).forEach(r=>rows.push([e.date,e.place,r.name,r.email,r.guestMale||0,r.guestFemale||0,r.paid?'Da dong':'Chua dong']));
-    (e.waitlist||[]).forEach(r=>rows.push([e.date+' (cho)',e.place,r.name,r.email,r.guestMale||0,r.guestFemale||0,'Cho']));
-  });
-  const csv=rows.map(r=>r.map(x=>`"${String(x).replace(/"/g,'""')}"`).join(',')).join('\n');
-  const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
-  a.download='kawasaki-goodminton.csv';
-  a.click();
-  URL.revokeObjectURL(a.href);
-}
-function clearDemoData(){
-  if(!isKgSuper()) return alert('Chỉ Super Admin được xóa dữ liệu.');
-  if(!confirm('Xóa toàn bộ dữ liệu lịch/đăng ký demo trên máy này?')) return;
-  localStorage.removeItem('kg_events2');
-  location.reload();
-}
-
-function isKgAdmin(){
-  return kgCurrent && (kgCurrent.role==='super_admin' || kgCurrent.role==='admin');
-}
-function isKgSuper(){
-  return kgCurrent && kgCurrent.role==='super_admin';
-}
-function renderKgAdminPanel(){
-  if(!isKgAdmin()){
-    alert('Chỉ Admin mới xem được trang này.');
-    return;
-  }
-  const adminPage=document.getElementById('admin');
-  if(!adminPage) return;
-  adminPage.innerHTML=`
-    <div class="headrow"><div><h2 class="title">👑 Admin Dashboard</h2><div class="sub">Quản lý Kawasaki Goodminton</div></div></div>
-    <div class="stats">
-      <div class="stat"><b>${kgUsers.length}</b>Thành viên</div>
-      <div class="stat"><b>${kgEvents.length}</b>Lịch chơi</div>
-      <div class="stat"><b>${kgEvents.reduce((s,e)=>s+kgCount(e),0)}</b>Đăng ký</div>
-      <div class="stat"><b>${kgEvents.reduce((s,e)=>s+(e.waitlist||[]).length,0)}</b>Danh sách chờ</div>
-    </div>
-    <div class="filters" style="margin-top:16px"><button class="pill active" onclick="renderKgMembers()">Thành viên</button><button class="pill" onclick="renderKgEventAdmin()">Tạo/Sửa lịch</button><button class="pill" onclick="renderKgPayments()">Đóng phí</button></div>
-    <div class="actions" style="margin:12px 0"><button class="pill" onclick="exportKgCSV()">Xuất CSV</button><button class="pill" onclick="clearDemoData()">Xóa dữ liệu demo</button></div><div id="kgAdminBody"></div>
-  `;
-  renderKgMembers();
-}
-function renderKgMembers(){
-  document.getElementById('kgAdminBody').innerHTML=`
-    <div class="panel" style="margin-top:16px"><h2>👥 Quản lý thành viên</h2><input id="memberSearch" placeholder="Tìm tên, Gmail, SĐT" oninput="filterMemberRows()" style="margin-bottom:10px"><div class="tablewrap"><table class="table"><thead><tr><th>Họ tên</th><th>Giới tính</th><th>Gmail</th><th>Facebook</th><th>Vai trò</th><th>Trạng thái</th><th>Thao tác</th></tr></thead><tbody>
-      ${kgUsers.map((u,i)=>`<tr class=\"member-row\" data-search=\"${(u.name||'')+' '+(u.email||'')}\"><td>${u.name||''}</td><td>${u.gender||''}</td><td>${u.email||''}</td><td>${u.facebook?`<a href="${u.facebook}" target="_blank">Mở link</a>`:''}</td><td>${u.role||'member'}</td><td>${u.status||'active'}</td><td>${isKgSuper()&&u.role!=='super_admin'?`<button class="pill" onclick="toggleKgAdmin(${i})">${u.role==='admin'?'Thu hồi Admin':'Cấp Admin'}</button>`:''} ${u.role!=='super_admin'?`<button class="pill" onclick="toggleKgLock(${i})">${u.status==='locked'?'Mở khóa':'Khóa'}</button>`:''}</td></tr>`).join('')}
-    </tbody></table></div></div>`;
-}
-function renderKgEventAdmin(){document.getElementById('kgAdminBody').innerHTML=kgEventForm()+`<div class="panel" style="margin-top:16px"><h2>📅 Lịch hiện có</h2>${kgEvents.map(e=>`<div class="person"><span>${e.date} · ${e.place} · ${kgCount(e)}/${e.slot}</span><span><button class="mini" onclick="editKgEvent('${e.id}')">Sửa</button><button class="mini" onclick="deleteKgEvent('${e.id}')">Xóa</button></span></div>`).join('')}</div>`}
-function renderKgPayments(){document.getElementById('kgAdminBody').innerHTML=`<div class="panel" style="margin-top:16px"><h2>💰 Xác nhận đóng phí</h2>${kgEvents.map(e=>`<h3>${e.date} · ${e.place}</h3>${(e.registrations||[]).map((r,i)=>`<div class="person ${r.paid?'paid':'unpaid'}"><span><b>${i+1}.</b> ${r.name} ${r.guestMale?'· 👨+'+r.guestMale:''} ${r.guestFemale?'· 👩+'+r.guestFemale:''} · 💴 ${kgRegFee(e,r).toLocaleString()}¥</span><label><input type="checkbox" ${r.paid?'checked':''} onchange="toggleKgPaid('${e.id}','${r.email}')"> Đã đóng</label></div>`).join('')||'<p>Chưa có đăng ký.</p>'}`).join('')}</div>`}
-
-
-function filterMemberRows(){
-  const q=(document.getElementById('memberSearch')?.value||'').toLowerCase();
-  document.querySelectorAll('.member-row').forEach(row=>{
-    row.style.display=row.dataset.search.toLowerCase().includes(q)?'':'none';
-  });
-}
-
-function toggleKgAdmin(i){
-  if(!isKgSuper()) return alert('Chỉ Super Admin mới cấp quyền Admin.');
-  kgUsers[i].role = kgUsers[i].role==='admin' ? 'member' : 'admin';
-  if(kgCurrent && kgCurrent.email===kgUsers[i].email) kgCurrent=kgUsers[i];
-  saveAuth();
-  renderKgAdminPanel();
-  syncAuth();
-}
-function toggleKgLock(i){
-  if(!isKgAdmin()) return;
-  if(kgUsers[i].role==='super_admin') return alert('Không thể khóa Super Admin.');
-  kgUsers[i].status = kgUsers[i].status==='locked' ? 'active' : 'locked';
-  saveAuth();
-  renderKgAdminPanel();
-}
-
-syncAuth();
 render();
-renderLiveEvents();
 </script>
 </body>
 </html>
