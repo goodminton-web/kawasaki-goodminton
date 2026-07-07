@@ -238,21 +238,38 @@ function memberRow(p,i,wait){const gender=p.includes('👩')?'Nữ':'Nam';return
 function card(e,i){
   const pct=Math.min(100,Math.round(e.used/e.slot*100));
   const left=e.slot-e.used;
-  const nameOnly=p=>p.replace(/👨|👩/g,'').replace(/\s*\+\s*Guest\s*/g,' + Guest ').trim();
-  const genderOf=p=>p.includes('👩')?'Nữ':'Nam';
-  const regRows=e.people.map((p,n)=>`<tr>
+
+  function rowsFromPerson(p){
+    const rows=[];
+    const mainGender=p.includes('👩')?'Nữ':'Nam';
+    const mainName=p.split('+')[0].replace(/👨|👩/g,'').trim();
+    if(mainName) rows.push({name:mainName,gender:mainGender});
+
+    const guestParts=[...p.matchAll(/Guest\s*(👨|👩)/g)];
+    guestParts.forEach((m,idx)=>{
+      rows.push({name:idx===0?'Đi cùng':'Đi cùng '+(idx+1),gender:m[1]==='👩'?'Nữ':'Nam'});
+    });
+    return rows;
+  }
+
+  const regList=e.people.flatMap(rowsFromPerson);
+  const waitList=e.wait.flatMap(rowsFromPerson);
+
+  const regRows=regList.map((r,n)=>`<tr>
     <td>${n+1}</td>
-    <td>${nameOnly(p)}</td>
-    <td>${genderOf(p)}</td>
+    <td>${r.name}</td>
+    <td>${r.gender}</td>
     <td><span class="facebook-f-icon">f</span></td>
     <td><label class="paid-mini"><input type="checkbox"> Đã đóng</label></td>
   </tr>`).join('');
-  const waitRows=e.wait.map((p,n)=>`<tr>
-    <td>${e.people.length+n+1}</td>
-    <td>${nameOnly(p)}</td>
-    <td>${genderOf(p)}</td>
+
+  const waitRows=waitList.map((r,n)=>`<tr>
+    <td>${regList.length+n+1}</td>
+    <td>${r.name}</td>
+    <td>${r.gender}</td>
     <td><span class="facebook-f-icon">f</span></td>
   </tr>`).join('');
+
   return `<article class="event ${e.status==='ended'?'ended':''}">
 <div class="topline"><span class="area">${e.area}</span>${status(e)}</div>
 <h3 class="venue-title">📍 ${e.place}</h3>
@@ -273,30 +290,10 @@ ${e.note?`<div class="note">📝 ${e.note}</div>`:''}
 <div class="listbox" id="list-${i}">
   <b>Danh sách đăng ký</b>
   <div class="table-scroll"><table class="member-table"><thead><tr><th>STT</th><th>Họ và tên</th><th>Giới tính</th><th>Facebook</th><th>Đã đóng</th></tr></thead><tbody>${regRows||'<tr><td colspan="5">Chưa có ai đăng ký.</td></tr>'}</tbody></table></div>
-  ${e.wait.length?`<div class="wait"><b>Danh sách chờ</b><div class="table-scroll"><table class="member-table"><thead><tr><th>STT</th><th>Họ và tên</th><th>Giới tính</th><th>Facebook</th></tr></thead><tbody>${waitRows}</tbody></table></div></div>`:''}
+  ${waitList.length?`<div class="wait"><b>Danh sách chờ</b><div class="table-scroll"><table class="member-table"><thead><tr><th>STT</th><th>Họ và tên</th><th>Giới tính</th><th>Facebook</th></tr></thead><tbody>${waitRows}</tbody></table></div></div>`:''}
 </div>
 </article>`;
 }
-
-function autoPromoteFromWait(e){
-  while(e.wait && e.wait.length && e.people.length < e.slot){
-    const nextPlayer = e.wait.shift();
-    e.people.push(nextPlayer);
-    e.used = e.people.length;
-  }
-  if(e.used < e.slot && e.status === 'full'){
-    e.status = 'open';
-  }
-}
-function cancelRegisteredPlayer(eventIndex, playerIndex){
-  const e = events[eventIndex];
-  if(!e || !e.people || !e.people[playerIndex]) return;
-  e.people.splice(playerIndex, 1);
-  e.used = e.people.length;
-  autoPromoteFromWait(e);
-  render();
-}
-
 function render(){const q=(document.getElementById('q')?.value||'').toLowerCase();const list=events.filter(e=>(currentArea==='all'||e.area===currentArea)&&(e.place.toLowerCase().includes(q)||e.date.includes(q)||e.area.toLowerCase().includes(q)));document.getElementById('upcoming').innerHTML=list.filter(e=>e.status!=='ended').map(card).join('');document.getElementById('ended').innerHTML=list.filter(e=>e.status==='ended').map(card).join('')}
 function filter(area,btn){currentArea=area;document.querySelectorAll('.filters .pill').forEach(b=>b.classList.remove('active'));btn.classList.add('active');render()}
 function toggleList(i){document.getElementById('list-'+i).classList.toggle('show')}
