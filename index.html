@@ -100,9 +100,9 @@
 .note{background:#fff7ed;border:1px dashed #fed7aa;border-radius:14px;padding:10px;margin:10px 0;font-weight:850;color:#9a3412}
 
 
-.member-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.member-name{font-weight:950}
-.gender-text{display:inline-block;min-width:34px;text-align:left;font-weight:850;color:inherit}
+.member-row{display:grid;grid-template-columns:32px 1fr 42px 24px;align-items:center;column-gap:10px}
+.member-name{font-weight:950;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gender-text{text-align:left;font-weight:700}
 
 </style>
 </head>
