@@ -221,6 +221,82 @@
 <div class="modal" id="modal"><div class="modal-card"><div style="display:flex;justify-content:space-between;align-items:center"><h2 id="modalTitle">Đăng nhập</h2><button class="pill" onclick="closeModal()">×</button></div><div id="modalBody"></div></div></div>
 
 <script>
+
+let kgUsers = JSON.parse(localStorage.getItem('kg_users_v3') || 'null') || [
+  {name:'Admin', gender:'Nam', email:'fantasticc898@gmail.com', facebook:'#', password:'admin123', role:'admin'}
+];
+let kgCurrent = JSON.parse(localStorage.getItem('kg_current_v3') || 'null');
+
+function kgSaveAuth(){
+  localStorage.setItem('kg_users_v3', JSON.stringify(kgUsers));
+  localStorage.setItem('kg_current_v3', JSON.stringify(kgCurrent));
+}
+function kgSyncAuth(){
+  const row = document.querySelector('.auth-row');
+  if(!row) return;
+  row.innerHTML = kgCurrent
+    ? `<button class="auth login">👤 ${kgCurrent.name}</button><button class="auth signup" onclick="kgLogout()">Đăng xuất</button>`
+    : `<button class="auth login" onclick="openModal('login')">Đăng nhập</button><button class="auth signup" onclick="openModal('register')">Đăng ký</button>`;
+}
+function kgLogin(){
+  const email = document.getElementById('kgLoginEmail').value.trim();
+  const password = document.getElementById('kgLoginPassword').value;
+  const user = kgUsers.find(u => u.email === email && u.password === password);
+  if(!user){ alert('Sai Gmail hoặc mật khẩu'); return; }
+  kgCurrent = user;
+  kgSaveAuth();
+  closeModal();
+  kgSyncAuth();
+}
+function kgRegister(){
+  const name = document.getElementById('kgRegName').value.trim();
+  const gender = document.getElementById('kgRegGender').value;
+  const email = document.getElementById('kgRegEmail').value.trim();
+  const facebook = document.getElementById('kgRegFacebook').value.trim();
+  const password = document.getElementById('kgRegPassword').value;
+  if(!name || !email || !facebook || !password){
+    alert('Nhập đủ Họ tên, Gmail, Link Facebook, Mật khẩu');
+    return;
+  }
+  if(kgUsers.some(u => u.email === email)){
+    alert('Gmail này đã đăng ký');
+    return;
+  }
+  const user = {name, gender, email, facebook, password, role: email === 'fantasticc898@gmail.com' ? 'admin' : 'member'};
+  kgUsers.push(user);
+  kgCurrent = user;
+  kgSaveAuth();
+  closeModal();
+  kgSyncAuth();
+}
+function kgForgotPassword(){
+  const email = document.getElementById('kgForgotEmail').value.trim();
+  const newPw = document.getElementById('kgForgotNewPw').value;
+  const newPw2 = document.getElementById('kgForgotNewPw2').value;
+  if(!email || !newPw || !newPw2){
+    alert('Nhập đủ Gmail và mật khẩu mới');
+    return;
+  }
+  if(newPw !== newPw2){
+    alert('Mật khẩu mới không khớp');
+    return;
+  }
+  const user = kgUsers.find(u => u.email === email);
+  if(!user){
+    alert('Không tìm thấy Gmail này');
+    return;
+  }
+  user.password = newPw;
+  kgSaveAuth();
+  alert('Đã đổi mật khẩu. Hãy đăng nhập lại.');
+  openModal('login');
+}
+function kgLogout(){
+  kgCurrent = null;
+  kgSaveAuth();
+  kgSyncAuth();
+}
+
 let currentArea='all';
 let events=[
  {area:'Kawasaki',date:'12/07/2026',time:'18:30 - 21:00',place:'南河原中学校',map:'https://maps.google.com/',address:'幸区中幸町4-35-1 渡辺不動産',courts:6,slot:36,used:28,male:1000,female:800,status:'open',people:['Nguyễn Đức Xuân 👨','Hoài Thu 👩','Steven 👨 + Guest 👩'],wait:['Nguyễn Văn A 👨']},
@@ -299,21 +375,48 @@ function filter(area,btn){currentArea=area;document.querySelectorAll('.filters .
 function toggleList(i){document.getElementById('list-'+i).classList.toggle('show')}
 function page(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.navbtn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');window.scrollTo({top:0,behavior:'smooth'})}
 function toggleLang(){document.getElementById('langMenu').classList.toggle('show')}
-function openModal(type){const m=document.getElementById('modal'),t=document.getElementById('modalTitle'),b=document.getElementById('modalBody');if(type==='login'){t.textContent='Đăng nhập';b.innerHTML=`<label>Gmail</label><input placeholder="example@gmail.com"><label>Mật khẩu</label><input type="password" placeholder="Mật khẩu"><br><br><button class="auth signup">Đăng nhập</button>`}if(type==='register'){
-  t.textContent='Đăng ký tài khoản';
-  b.innerHTML=`<div class="formgrid">
-    <div><label>Họ và tên</label><input></div>
-    <div><label>Giới tính</label><select><option>Nam</option><option>Nữ</option></select></div>
-    <div><label>Gmail</label><input></div>
-    <div><label>Link Facebook cá nhân</label><input></div>
-    <div><label>Mật khẩu</label><input type="password"></div>
-  </div><br><button class="auth signup">Tạo tài khoản</button>`;
-}if(type==='needLogin'){t.textContent='Cần đăng nhập';b.innerHTML=`<p>Bạn cần đăng nhập hoặc tạo tài khoản để đăng ký lịch chơi.</p><button class="auth signup" onclick="openModal('login')">Đăng nhập</button> <button class="auth login" onclick="openModal('register')">Đăng ký</button>`}m.classList.add('show')}
+function openModal(type){
+  const m=document.getElementById('modal'),t=document.getElementById('modalTitle'),b=document.getElementById('modalBody');
+  if(type==='login'){
+    t.textContent='Đăng nhập';
+    b.innerHTML=`<label>Gmail</label><input id="kgLoginEmail" placeholder="example@gmail.com">
+      <label>Mật khẩu</label><input id="kgLoginPassword" type="password" placeholder="Mật khẩu">
+      <br><br><button class="auth signup" onclick="kgLogin()">Đăng nhập</button>
+      <button class="auth login" onclick="openModal('forgot')">Quên mật khẩu?</button>
+      <p style="color:#6b7280;font-weight:800">Admin: fantasticc898@gmail.com / admin123</p>`;
+  }
+  if(type==='register'){
+    t.textContent='Đăng ký tài khoản';
+    b.innerHTML=`<div class="formgrid">
+      <div><label>Họ và tên</label><input id="kgRegName"></div>
+      <div><label>Giới tính</label><select id="kgRegGender"><option>Nam</option><option>Nữ</option></select></div>
+      <div><label>Gmail</label><input id="kgRegEmail"></div>
+      <div><label>Link Facebook cá nhân</label><input id="kgRegFacebook"></div>
+      <div><label>Mật khẩu</label><input id="kgRegPassword" type="password"></div>
+    </div><br><button class="auth signup" onclick="kgRegister()">Tạo tài khoản</button>`;
+  }
+  if(type==='forgot'){
+    t.textContent='Quên mật khẩu';
+    b.innerHTML=`<label>Gmail đã đăng ký</label><input id="kgForgotEmail" placeholder="example@gmail.com">
+      <label>Mật khẩu mới</label><input id="kgForgotNewPw" type="password">
+      <label>Nhập lại mật khẩu mới</label><input id="kgForgotNewPw2" type="password">
+      <br><br><button class="auth signup" onclick="kgForgotPassword()">Đổi mật khẩu</button>
+      <button class="auth login" onclick="openModal('login')">Quay lại đăng nhập</button>`;
+  }
+  if(type==='needLogin'){
+    t.textContent='Cần đăng nhập';
+    b.innerHTML=`<p>Bạn cần đăng nhập hoặc tạo tài khoản để đăng ký lịch chơi.</p>
+      <button class="auth signup" onclick="openModal('login')">Đăng nhập</button>
+      <button class="auth login" onclick="openModal('register')">Đăng ký</button>`;
+  }
+  m.classList.add('show');
+}
 function closeModal(){document.getElementById('modal').classList.remove('show')}
 function makePreview(){document.getElementById('preview').innerHTML=`<b>🏸 ${document.getElementById('newDate').value||'Ngày chơi'}</b><br>🕒 ${document.getElementById('newTime').value||'19:00 - 21:00'}<br>📍 ${document.getElementById('newPlace').value||'Địa điểm'}<br>🏸 ${document.getElementById('newCourts').value} sân · 👥 ${document.getElementById('newSlot').value} slot<br>💴 Phí dự kiến: Nam ${document.getElementById('newMale').value}¥ / Nữ ${document.getElementById('newFemale').value}¥`}
 function addEvent(){events.unshift({area:document.getElementById('newArea').value,date:document.getElementById('newDate').value||'New date',time:document.getElementById('newTime').value||'19:00 - 21:00',place:document.getElementById('newPlace').value||'Địa điểm mới',map:document.getElementById('newMap').value||'https://maps.google.com/',courts:+document.getElementById('newCourts').value,slot:+document.getElementById('newSlot').value,used:0,male:+document.getElementById('newMale').value,female:+document.getElementById('newFemale').value,status:'open',people:[],wait:[]});alert('Đã tạo lịch demo. Quay lại Lịch chơi để xem.')}
 const dict={vi:{label:'🇻🇳 Tiếng Việt ▼',navSchedule:'Lịch chơi',navAbout:'Giới thiệu',login:'Đăng nhập',register:'Đăng ký',registerMember:'Đăng ký thành viên',welcome:'✨ Chào mừng bạn đến với Câu lạc bộ cầu lông Kawasaki Goodminton',tagline:'“Nơi kết nối đam mê – Gắn kết cộng đồng người Việt tại Nhật Bản.”',guestNote:'🔓 Bạn vẫn có thể xem lịch chơi và danh sách đăng ký mà không cần đăng nhập.',scheduleTitle:'📅 Lịch chơi sắp diễn ra',scheduleSub:'Mở web là xem lịch, chọn sân và đăng ký nhanh.',all:'Tất cả',endedTitle:'Lịch đã kết thúc'},en:{label:'🇬🇧 English ▼',navSchedule:'Schedule',navAbout:'About',login:'Login',register:'Register',registerMember:'Register as member',welcome:'✨ Welcome to Kawasaki Goodminton Badminton Club',tagline:'“Connecting passion – Building the Vietnamese community in Japan.”',guestNote:'🔓 You can view schedules and registration lists without logging in.',scheduleTitle:'📅 Upcoming Games',scheduleSub:'Open the website, check events, and register quickly.',all:'All',endedTitle:'Finished Events'},ja:{label:'🇯🇵 日本語 ▼',navSchedule:'スケジュール',navAbout:'紹介',login:'ログイン',register:'登録',registerMember:'メンバー登録',welcome:'✨ Kawasaki Goodminton バドミントンクラブへようこそ',tagline:'「情熱をつなぎ、日本のベトナム人コミュニティを結びます。」',guestNote:'🔓 ログインしなくてもスケジュールと登録リストを確認できます。',scheduleTitle:'📅 今後のスケジュール',scheduleSub:'開いてすぐ予定を確認し、簡単に登録できます。',all:'すべて',endedTitle:'終了した予定'}}
 function setLang(lang){document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(dict[lang][k])el.textContent=dict[lang][k]});document.getElementById('langLabel').textContent=dict[lang].label;document.getElementById('langMenu').classList.remove('show')}
+kgSyncAuth();
 render();
 </script>
 </body>
