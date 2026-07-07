@@ -107,6 +107,13 @@ button,.auth,.pill,.btn{touch-action:manipulation;-webkit-tap-highlight-color:tr
   .modal-card{border-radius:22px}
 }
 
+
+.statusline{margin:10px 0}
+.okbadge,.warnbadge,.fullbadge{display:inline-block;padding:8px 12px;border-radius:999px;font-weight:900}
+.okbadge{background:#dcfce7;color:#166534}
+.warnbadge{background:#fef3c7;color:#92400e}
+.fullbadge{background:#fee2e2;color:#991b1b}
+
 </style>
 
 <meta name="theme-color" content="#f97316">
@@ -465,20 +472,28 @@ function renderLiveEvents(){
     return `<article class="event">
       <div class="topline"><span class="area">${e.area}</span><span class="status ${full?'full':'ok'}">${full?'Đầy - Chờ':'Còn '+left+' chỗ'}</span></div>
       <h3>🏸 ${e.date}</h3>
-      <div class="info"><div>🕒 ${e.time}</div><div>📍 <a href="${e.maps}" target="_blank">${e.place}<br>${e.address||""}</a></div><div>🏸 ${e.courts} sân · 👥 ${c}/${e.slot}</div></div>
-      <div class="fee"><div class="fee-title">💴 Phí dự kiến</div><div>👨 Nam: ${e.maleFee}¥</div><div>👩 Nữ: ${e.femaleFee}¥</div><div class="fee-title">💰 Dự kiến thu: ${kgExpectedRevenue(e).toLocaleString()}¥</div></div>${e.note?`<div class="note">📝 ${e.note}</div>`:""}
+      <div class="info"><div>🕒 ${e.time}</div><div>📍 ${e.place}<br>${e.address||""}</div><a class="map" href="${e.maps}" target="_blank">🗺️ Google Map</a><div>🏸 ${e.courts} sân · 👥 ${c}/${e.slot}</div></div>
+      <div class="fee">
+<div class="fee-title">💴 Phí tham gia dự kiến</div>
+<div>👨 Nam: <b>${e.maleFee}¥</b></div>
+<div>👩 Nữ: <b>${e.femaleFee}¥</b></div>
+</div>
+<div class="statusline">
+${left<=0?'<span class="fullbadge">🔴 Đã đầy - Đăng ký chờ</span>':(left<=5?`<span class="warnbadge">🟠 Sắp đầy (còn ${left} chỗ)</span>`:`<span class="okbadge">🟢 Còn ${left} chỗ</span>`)}
+</div>
+${e.note?`<div class="note">📝 ${e.note}</div>`:""}
       <div class="actions"><button class="btn reg" onclick="openJoinEvent('${e.id}')" ${kgJoined(e)?'disabled':''}>${kgJoined(e)?'Đã đăng ký':(full?'Đăng ký chờ':'Đăng ký')}</button><button class="btn list" onclick="toggleKgList('${e.id}')">Danh sách</button></div>
       <div class="listbox" id="kglist-${e.id}" style="display:none">
         <b>Danh sách đăng ký</b>
-        ${(e.registrations||[]).map(r=>kgPerson(e,r,false)).join('')||'<p>Chưa có ai đăng ký.</p>'}
-        ${(e.waitlist||[]).length?'<b>Danh sách chờ</b>'+(e.waitlist||[]).map(r=>kgPerson(e,r,true)).join(''):''}
+        ${(e.registrations||[]).map((r,i)=>kgPerson(e,r,false,i+1)).join('')||'<p>Chưa có ai đăng ký.</p>'}
+        ${(e.waitlist||[]).length?'<b>Danh sách chờ</b>'+(e.waitlist||[]).map((r,i)=>kgPerson(e,r,true,i+1)).join(''):''}
       </div>
       ${isKgAdmin()?`<div class="actions"><button class="btn list" onclick="editKgEvent('${e.id}')">Sửa</button><button class="btn reg" onclick="deleteKgEvent('${e.id}')">Xóa</button></div>`:''}
     </article>`
   }).join('');
 }
-function kgPerson(e,r,wait){
-  return `<div class="person ${wait?'waiting':(isKgAdmin()?(r.paid?'paid':'unpaid'):'')}"><span>${r.name} ${r.guestMale?'· 👨+'+r.guestMale:''} ${r.guestFemale?'· 👩+'+r.guestFemale:''}</span>${isKgAdmin()?`<span><input type="checkbox" ${r.paid?'checked':''} onchange="toggleKgPaid('${e.id}','${r.email}')"> Đã đóng <button class="mini" onclick="removeKgReg('${e.id}','${r.email}',${wait})">Hủy</button></span>`:''}</div>`
+function kgPerson(e,r,wait,no){
+  return `<div class="person ${wait?'waiting':(isKgAdmin()?(r.paid?'paid':'unpaid'):'')}"><span><b>${no||''}.</b> ${r.name} ${r.guestMale?'· 👨+'+r.guestMale:''} ${r.guestFemale?'· 👩+'+r.guestFemale:''}</span>${isKgAdmin()?`<span><input type="checkbox" ${r.paid?'checked':''} onchange="toggleKgPaid('${e.id}','${r.email}')"> Đã đóng <button class="mini" onclick="removeKgReg('${e.id}','${r.email}',${wait})">Hủy</button></span>`:''}</div>`
 }
 function toggleKgList(id){const el=document.getElementById('kglist-'+id);if(el)el.style.display=el.style.display==='none'?'block':'none'}
 function openJoinEvent(id){
@@ -500,10 +515,10 @@ function toggleKgPaid(id,email){const e=kgEvents.find(x=>x.id===id);const r=e.re
 function removeKgReg(id,email,wait){const e=kgEvents.find(x=>x.id===id);if(wait)e.waitlist=e.waitlist.filter(r=>r.email!==email);else e.registrations=e.registrations.filter(r=>r.email!==email);while(e.waitlist.length&&kgCount(e)<e.slot){let n=e.waitlist[0], add=1+n.guestMale+n.guestFemale;if(kgCount(e)+add<=e.slot)e.registrations.push(e.waitlist.shift());else break}saveEvents();renderLiveEvents();renderKgAdminPanel();}
 function kgEventForm(e){
   e=e||{id:'',area:'Shinagawa',date:'',time:'19:00 - 21:00',place:'',address:'',maps:'https://maps.google.com/',courts:3,slot:18,maleFee:1000,femaleFee:800,note:''};
-  return `<div class="panel" style="margin-top:16px"><h2>${e.id?'Sửa lịch':'Tạo lịch'}</h2><div class="formgrid"><input id="keDate" placeholder="Ngày" value="${e.date}"><input id="keTime" placeholder="Giờ" value="${e.time}"><select id="keArea"><option ${e.area==='Shinagawa'?'selected':''}>Shinagawa</option><option ${e.area==='Kawasaki'?'selected':''}>Kawasaki</option></select><input id="kePlace" placeholder="Tên sân (VD: 南河原中学校)" value="${e.place}"><input id="keAddress" placeholder="Địa chỉ đầy đủ" value="${e.address||''}"><input id="keCourts" type="number" placeholder="Số sân" value="${e.courts}"><input id="keSlot" type="number" placeholder="Slot" value="${e.slot}"><input id="keMale" type="number" placeholder="Phí Nam" value="${e.maleFee}"><input id="keFemale" type="number" placeholder="Phí Nữ" value="${e.femaleFee}"><textarea id="keNote" placeholder="Ghi chú về sân, lối vào, điều hòa, mượn vợt...">${e.note||''}</textarea></div><br><button class="auth signup" onclick="saveKgEvent('${e.id}')">${e.id?'Lưu sửa':'Tạo lịch'}</button></div>`
+  return `<div class="panel" style="margin-top:16px"><h2>${e.id?'Sửa lịch':'Tạo lịch'}</h2><div class="formgrid"><input id="keDate" placeholder="Ngày" value="${e.date}"><input id="keTime" placeholder="Giờ" value="${e.time}"><select id="keArea"><option ${e.area==='Shinagawa'?'selected':''}>Shinagawa</option><option ${e.area==='Kawasaki'?'selected':''}>Kawasaki</option></select><input id="kePlace" placeholder="Tên sân (VD: 南河原中学校)" value="${e.place}"><input id="keAddress" placeholder="Địa chỉ sân" value="${e.address||''}"><input id="keMaps" placeholder="Link Google Map" value="${e.maps||'https://maps.google.com/'}"><input id="keCourts" type="number" placeholder="Số sân" value="${e.courts}"><input id="keSlot" type="number" placeholder="Slot" value="${e.slot}"><input id="keMale" type="number" placeholder="Phí Nam" value="${e.maleFee}"><input id="keFemale" type="number" placeholder="Phí Nữ" value="${e.femaleFee}"><textarea id="keNote" placeholder="Ghi chú về sân, lối vào, điều hòa, mượn vợt...">${e.note||''}</textarea></div><br><button class="auth signup" onclick="saveKgEvent('${e.id}')">${e.id?'Lưu sửa':'Tạo lịch'}</button></div>`
 }
 function saveKgEvent(id){
-  const data={id:id||'e'+Date.now(),area:keArea.value,date:keDate.value,time:keTime.value,place:kePlace.value,address:keAddress.value.trim(),maps:'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(keAddress.value.trim()),courts:+keCourts.value,slot:+keSlot.value,maleFee:+keMale.value,femaleFee:+keFemale.value,note:keNote.value.trim(),registrations:[],waitlist:[]};
+  const data={id:id||'e'+Date.now(),area:keArea.value,date:keDate.value,time:keTime.value,place:kePlace.value,address:keAddress.value.trim(),maps:keMaps.value.trim()||('https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(keAddress.value.trim())),courts:+keCourts.value,slot:+keSlot.value,maleFee:+keMale.value,femaleFee:+keFemale.value,note:keNote.value.trim(),registrations:[],waitlist:[]};
   if(!data.date||!data.place)return alert('Nhập ngày và địa điểm');
   const i=kgEvents.findIndex(e=>e.id===id);
   if(i>=0){data.registrations=kgEvents[i].registrations||[];data.waitlist=kgEvents[i].waitlist||[];kgEvents[i]=data}else kgEvents.unshift(data);
@@ -599,7 +614,7 @@ function renderKgMembers(){
     </tbody></table></div></div>`;
 }
 function renderKgEventAdmin(){document.getElementById('kgAdminBody').innerHTML=kgEventForm()+`<div class="panel" style="margin-top:16px"><h2>📅 Lịch hiện có</h2>${kgEvents.map(e=>`<div class="person"><span>${e.date} · ${e.place} · ${kgCount(e)}/${e.slot}</span><span><button class="mini" onclick="editKgEvent('${e.id}')">Sửa</button><button class="mini" onclick="deleteKgEvent('${e.id}')">Xóa</button></span></div>`).join('')}</div>`}
-function renderKgPayments(){document.getElementById('kgAdminBody').innerHTML=`<div class="panel" style="margin-top:16px"><h2>💰 Xác nhận đóng phí</h2>${kgEvents.map(e=>`<h3>${e.date} · ${e.place}</h3>${(e.registrations||[]).map(r=>`<div class="person ${r.paid?'paid':'unpaid'}"><span>${r.name} ${r.guestMale?'· 👨+'+r.guestMale:''} ${r.guestFemale?'· 👩+'+r.guestFemale:''} · 💴 ${kgRegFee(e,r).toLocaleString()}¥</span><label><input type="checkbox" ${r.paid?'checked':''} onchange="toggleKgPaid('${e.id}','${r.email}')"> Đã đóng</label></div>`).join('')||'<p>Chưa có đăng ký.</p>'}`).join('')}</div>`}
+function renderKgPayments(){document.getElementById('kgAdminBody').innerHTML=`<div class="panel" style="margin-top:16px"><h2>💰 Xác nhận đóng phí</h2>${kgEvents.map(e=>`<h3>${e.date} · ${e.place}</h3>${(e.registrations||[]).map((r,i)=>`<div class="person ${r.paid?'paid':'unpaid'}"><span><b>${i+1}.</b> ${r.name} ${r.guestMale?'· 👨+'+r.guestMale:''} ${r.guestFemale?'· 👩+'+r.guestFemale:''} · 💴 ${kgRegFee(e,r).toLocaleString()}¥</span><label><input type="checkbox" ${r.paid?'checked':''} onchange="toggleKgPaid('${e.id}','${r.email}')"> Đã đóng</label></div>`).join('')||'<p>Chưa có đăng ký.</p>'}`).join('')}</div>`}
 
 
 function filterMemberRows(){
