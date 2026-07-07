@@ -191,7 +191,7 @@
             <div><label>Ngày</label><input type="date" id="newDate"></div><div><label>Giờ</label><input placeholder="19:00 - 21:00" id="newTime"></div>
             <div><label>Khu vực</label><select id="newArea"><option>Shinagawa</option><option>Kawasaki</option></select></div><div><label>Địa điểm</label><input placeholder="南河原中学校" id="newPlace"></div>
             <div><label>Google Maps URL</label><input placeholder="https://maps.google.com/..." id="newMap"></div><div><label>Số sân</label><input type="number" value="3" id="newCourts"></div>
-            <div><label>Slot giới hạn</label><input type="number" value="18" id="newSlot"></div><div><label>Guest tối đa</label><input type="number" value="2" id="newGuest"></div>
+            <div><label>Slot giới hạn</label><input type="number" value="18" id="newSlot"></div>
             <div><label>Phí dự kiến Nam</label><input type="number" value="1000" id="newMale"></div><div><label>Phí dự kiến Nữ</label><input type="number" value="800" id="newFemale"></div>
           </div>
           <label>Ghi chú</label><textarea placeholder="Ví dụ: có điều hòa, vui lòng đến đúng giờ..."></textarea>
@@ -419,47 +419,62 @@ const dict={vi:{label:'🇻🇳 Tiếng Việt ▼',navSchedule:'Lịch chơi',n
 function setLang(lang){document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(dict[lang][k])el.textContent=dict[lang][k]});document.getElementById('langLabel').textContent=dict[lang].label;document.getElementById('langMenu').classList.remove('show')}
 kgSyncAuth();
 
+
 function kgSaveEvents(){
   localStorage.setItem('kg_events_v3', JSON.stringify(events));
 }
 function kgAdminCheck(){
   return kgCurrent && kgCurrent.role === 'admin';
 }
+function getAdminContainer(){
+  return document.getElementById('adminPage') || document.querySelector('#admin') || document.querySelector('.admin') || document.querySelector('.panel');
+}
 function renderAdmin(){
-  const adminPage=document.getElementById('adminPage')||document.querySelector('.admin')||document.getElementById('admin');
+  const adminPage = getAdminContainer();
   if(!adminPage) return;
   if(!kgAdminCheck()){
-    adminPage.innerHTML='<div class="panel"><h2>Chỉ Admin mới xem được trang này.</h2></div>';
+    adminPage.innerHTML='<div class="panel"><h2>Chỉ Admin mới xem được trang này.</h2><p>Hãy đăng nhập bằng tài khoản Admin.</p></div>';
     return;
   }
-  adminPage.innerHTML=`<div class="panel">
-    <h2>👑 Admin - Quản lý lịch chơi</h2>
-    <div class="formgrid">
-      <div><label>Khu vực</label><select id="admArea"><option>Kawasaki</option><option>Shinagawa</option></select></div>
-      <div><label>Tên sân</label><input id="admPlace" placeholder="Tên sân"></div>
-      <div><label>Ngày</label><input id="admDate" placeholder="12/07/2026"></div>
-      <div><label>Thời gian</label><input id="admTime" placeholder="18:30 - 21:00"></div>
-      <div><label>Địa chỉ sân</label><input id="admAddress" placeholder="Địa chỉ sân"></div>
-      <div><label>Google Map</label><input id="admMap" placeholder="https://maps.google.com/"></div>
-      <div><label>Số sân</label><input id="admCourts" type="number" value="3"></div>
-      <div><label>Slot tối đa</label><input id="admSlot" type="number" value="18"></div>
-      <div><label>Phí Nam</label><input id="admMale" type="number" value="1000"></div>
-      <div><label>Phí Nữ</label><input id="admFemale" type="number" value="800"></div>
-      <div style="grid-column:1/-1"><label>Ghi chú</label><textarea id="admNote" placeholder="Ghi chú"></textarea></div>
-    </div>
-    <br><button class="auth signup" onclick="kgAddEvent()">Tạo lịch</button>
+  adminPage.innerHTML=`<div class="side">
+    <button class="pill active" onclick="kgShowEventForm()">Tạo lịch</button>
+    <button class="pill" onclick="kgShowEventList()">Danh sách lịch</button>
   </div>
-  <div class="panel"><h2>📅 Lịch hiện có</h2>
-    ${events.map((e,i)=>`<div class="person">
-      <span>${e.date} · ${e.time} · ${e.place} · ${e.used}/${e.slot}</span>
-      <span><button class="pill" onclick="kgEditEvent(${i})">Sửa</button> <button class="pill" onclick="kgDeleteEvent(${i})">Xóa</button></span>
-    </div>`).join('')}
-  </div>`;
+  <div class="panel" id="adminWork"></div>`;
+  kgShowEventForm();
 }
+function kgShowEventForm(editIndex=null){
+  const box=document.getElementById('adminWork');
+  if(!box) return;
+  const e = editIndex===null ? {
+    area:'Kawasaki',date:'',time:'18:30 - 21:00',place:'',address:'',map:'https://maps.google.com/',
+    courts:6,slot:36,male:1000,female:800,note:''
+  } : events[editIndex];
+
+  box.innerHTML=`<h2>${editIndex===null?'➕ Tạo lịch mới':'✏️ Sửa lịch'}</h2>
+  <div class="formgrid">
+    <div><label>Khu vực</label><select id="admArea"><option ${e.area==='Kawasaki'?'selected':''}>Kawasaki</option><option ${e.area==='Shinagawa'?'selected':''}>Shinagawa</option></select></div>
+    <div><label>Tên sân</label><input id="admPlace" value="${e.place||''}" placeholder="南河原中学校"></div>
+    <div><label>Ngày</label><input id="admDate" value="${e.date||''}" placeholder="12/07/2026"></div>
+    <div><label>Thời gian</label><input id="admTime" value="${e.time||''}" placeholder="18:30 - 21:00"></div>
+    <div><label>Địa chỉ sân</label><input id="admAddress" value="${e.address||''}" placeholder="Địa chỉ sân"></div>
+    <div><label>Google Map</label><input id="admMap" value="${e.map||'https://maps.google.com/'}" placeholder="Link Google Map"></div>
+    <div><label>Số sân</label><input id="admCourts" type="number" value="${e.courts||3}"></div>
+    <div><label>Slot tối đa</label><input id="admSlot" type="number" value="${e.slot||18}"></div>
+    <div><label>Phí Nam</label><input id="admMale" type="number" value="${e.male||1000}"></div>
+    <div><label>Phí Nữ</label><input id="admFemale" type="number" value="${e.female||800}"></div>
+    <div style="grid-column:1/-1"><label>Ghi chú</label><textarea id="admNote" placeholder="Ghi chú">${e.note||''}</textarea></div>
+  </div>
+  <br>
+  <button class="auth signup" onclick="${editIndex===null?'kgAddEvent()':'kgSaveEditEvent('+editIndex+')'}">${editIndex===null?'Tạo lịch':'Lưu lịch'}</button>
+  <button class="auth login" onclick="kgShowEventList()">Xem danh sách lịch</button>`;
+  
+}
+
 function kgReadAdminForm(){
   return {
     area:admArea.value,
-    date:admDate.value||'New date',
+    date:admDate.value||'Chưa nhập ngày',
     time:admTime.value||'19:00 - 21:00',
     place:admPlace.value||'Địa điểm mới',
     map:admMap.value||'https://maps.google.com/',
@@ -476,33 +491,32 @@ function kgReadAdminForm(){
   };
 }
 function kgAddEvent(){
-  events.unshift(kgReadAdminForm());
+  const data=kgReadAdminForm();
+  events.unshift(data);
   kgSaveEvents();
   render();
-  renderAdmin();
+  kgShowEventList();
   alert('Đã tạo lịch');
 }
-function kgEditEvent(i){
-  const e=events[i];
-  admArea.value=e.area; admPlace.value=e.place; admDate.value=e.date; admTime.value=e.time;
-  admAddress.value=e.address||''; admMap.value=e.map||''; admCourts.value=e.courts||3;
-  admSlot.value=e.slot||18; admMale.value=e.male||1000; admFemale.value=e.female||800; admNote.value=e.note||'';
-  const btn=document.querySelector('.panel .signup');
-  btn.textContent='Lưu lịch';
-  btn.onclick=function(){kgSaveEditEvent(i)};
-  window.scrollTo({top:0,behavior:'smooth'});
+function kgShowEventList(){
+  const box=document.getElementById('adminWork');
+  if(!box) return;
+  box.innerHTML=`<h2>📅 Danh sách lịch</h2>${events.map((e,i)=>`<div class="person">
+    <span>${e.date} · ${e.time} · ${e.place} · ${e.used}/${e.slot}</span>
+    <span><button class="pill" onclick="kgShowEventForm(${i})">Sửa</button> <button class="pill" onclick="kgDeleteEvent(${i})">Xóa</button></span>
+  </div>`).join('') || '<p>Chưa có lịch.</p>'}`;
 }
 function kgSaveEditEvent(i){
   const old=events[i];
-  const updated=kgReadAdminForm();
-  updated.people=old.people||[];
-  updated.wait=old.wait||[];
-  updated.used=old.used||updated.people.length;
-  updated.status=old.status||'open';
-  events[i]=updated;
+  const data=kgReadAdminForm();
+  data.people=old.people||[];
+  data.wait=old.wait||[];
+  data.used=old.used||data.people.length;
+  data.status=old.status||'open';
+  events[i]=data;
   kgSaveEvents();
   render();
-  renderAdmin();
+  kgShowEventList();
   alert('Đã lưu lịch');
 }
 function kgDeleteEvent(i){
@@ -510,7 +524,7 @@ function kgDeleteEvent(i){
   events.splice(i,1);
   kgSaveEvents();
   render();
-  renderAdmin();
+  kgShowEventList();
 }
 
 render();
