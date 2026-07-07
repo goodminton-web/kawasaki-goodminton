@@ -87,6 +87,18 @@
 }
 .fb,.fb-icon{display:inline-flex;align-items:center;justify-content:center}
 
+.paid-mini{font-weight:850;color:#166534}.paid-mini input{width:auto;margin-right:4px}
+
+.venue-title{font-size:30px!important;font-weight:950!important;color:#ea580c!important;margin:12px 0 8px!important}
+.event-date{font-size:18px!important;font-weight:900!important;margin-bottom:12px!important}
+.fee-row{font-weight:950;display:flex;flex-wrap:wrap;gap:6px}
+.slotline{font-weight:950;margin:10px 0;color:#374151}
+.statusline{margin:10px 0}
+.okbadge,.fullbadge{display:inline-block;padding:8px 12px;border-radius:999px;font-weight:900}
+.okbadge{background:#dcfce7;color:#166534}
+.fullbadge{background:#fee2e2;color:#991b1b}
+.note{background:#fff7ed;border:1px dashed #fed7aa;border-radius:14px;padding:10px;margin:10px 0;font-weight:850;color:#9a3412}
+
 </style>
 </head>
 <body>
@@ -215,7 +227,26 @@ function moneyPaid(e){return moneyExpected(e)}
 function fbSvg(){return `<svg width="18" height="18" viewBox="0 0 24 24"><path fill="#1877F2" d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073c0 6.019 4.388 11.01 10.125 11.927v-8.437H7.078v-3.49h3.047V9.41c0-3.007 1.792-4.669 4.533-4.669 1.313 0 2.686.235 2.686.235v2.953H15.83c-1.49 0-1.955.925-1.955 1.874v2.27h3.328l-.532 3.49h-2.796V24C19.612 23.083 24 18.092 24 12.073z"/></svg>`}
 function memberRow(p,i,wait){const gender=p.includes('👩')?'Nữ':'Nam';return `<div class="person ${wait?'waiting':'paid'}"><span><b class="stt">${i+1}.</b> ${p} <em>${gender}</em> <span class="fb-small">${fbSvg()}</span></span><span class="paid-check"><label><input type="checkbox" ${wait?'':'checked'}> Đã đóng</label></span></div>`}
 
-function card(e,i){const pct=Math.min(100,Math.round(e.used/e.slot*100));const left=e.slot-e.used;const exp=moneyExpected(e);const paid=moneyPaid(e);return `<article class="event ${e.status==='ended'?'ended':''}"><div class="topline"><span class="area">${e.area}</span>${status(e)}</div><h3 class="venue-title">📍 ${e.place}</h3><div class="event-date">📅 ${e.date} &nbsp;&nbsp; 🕒 ${e.time}</div><div class="info"><div><strong>Địa chỉ:</strong><br>${e.address||'Chưa cập nhật'}</div><a class="map" href="${e.map}" target="_blank">🗺️ Google Map</a><div>🏸 ${e.courts} sân · 👥 ${e.used}/${e.slot}</div></div><div class="slot"><span style="width:${pct}%"></span></div><div class="fee"><div class="fee-title">💴 Phí tham gia dự kiến</div><div class="fee-row"><span>👨 Nam: <b>${e.male}¥</b></span><span>👩 Nữ: <b>${e.female}¥</b></span></div></div><div class="admin-money"><div><b>💰 Tổng dự kiến thu:</b> ${exp.toLocaleString()}¥</div><div><b>✅ Đã thu thực tế:</b> ${paid.toLocaleString()}¥</div><div><b>❌ Còn lại chưa thu:</b> ${(exp-paid).toLocaleString()}¥</div></div><div class="statusline">${left<=0?'<span class="fullbadge">🔴 Đã đầy - Đăng ký chờ</span>':left<=5?`<span class="warnbadge">🟠 Sắp đầy (còn ${left} chỗ)</span>`:`<span class="okbadge">🟢 Còn ${left} chỗ</span>`}</div>${e.note?`<div class="note">📝 ${e.note}</div>`:''}<div class="actions"><button class="btn reg" onclick="openModal('needLogin')">${e.status==='full'?'Đăng ký chờ':'Đăng ký'}</button><button class="btn list" onclick="toggleList(${i})">Xem danh sách</button></div><div class="listbox" id="list-${i}"><b>Danh sách đăng ký</b>${e.people.map((p,n)=>memberRow(p,n,false)).join('')}${e.wait.length?`<div class="wait"><b>Danh sách chờ</b>${e.wait.map((p,n)=>memberRow(p,n,true)).join('')}</div>`:''}</div></article>`}
+function card(e,i){const pct=Math.min(100,Math.round(e.used/e.slot*100));const left=e.slot-e.used;return `<article class="event ${e.status==='ended'?'ended':''}">
+<div class="topline"><span class="area">${e.area}</span>${status(e)}</div>
+<h3 class="venue-title">📍 ${e.place}</h3>
+<div class="event-date">📅 ${e.date} &nbsp;&nbsp; 🕒 ${e.time}</div>
+<div class="info">
+<div><strong>📍 Địa chỉ sân</strong><br>${e.address||'Chưa cập nhật'}</div>
+<a class="map" href="${e.map}" target="_blank">🗺️ Google Map</a>
+<div>🏸 ${e.courts} sân</div>
+</div>
+<div class="slot"><span style="width:${pct}%"></span></div>
+<div class="fee">
+  <div class="fee-title">💴 Phí dự kiến:</div>
+  <div class="fee-row">👨 Nam: ${e.male}¥ &nbsp;&nbsp; | &nbsp;&nbsp; 👩 Nữ: ${e.female}¥</div>
+</div>
+<div class="slotline">👥 Slot: ${e.used} / ${e.slot}</div>
+<div class="statusline">${left<=0?'<span class="fullbadge">🔴 Đã đầy - Đăng ký chờ</span>':`<span class="okbadge">🟢 Còn ${left} chỗ</span>`}</div>
+${e.note?`<div class="note">📝 ${e.note}</div>`:''}
+<div class="actions"><button class="btn reg" onclick="openModal('needLogin')">${e.status==='full'?'Đăng ký chờ':'Đăng ký'}</button><button class="btn list" onclick="toggleList(${i})">Xem danh sách</button></div>
+<div class="listbox" id="list-${i}"><b>Danh sách đăng ký</b>${e.people.map((p,n)=>`<div class="person"><span><b class="stt">${n+1}.</b> ${p}</span><span><label class="paid-mini"><input type="checkbox"> Đã đóng</label></span></div>`).join('')}${e.wait.length?`<div class="wait"><b>Danh sách chờ</b>${e.wait.map((p,n)=>`<div class="person"><span><b class="stt">${n+1}.</b> ${p}</span><span>🟡</span></div>`).join('')}</div>`:''}</div>
+</article>`}
 
 function render(){const q=(document.getElementById('q')?.value||'').toLowerCase();const list=events.filter(e=>(currentArea==='all'||e.area===currentArea)&&(e.place.toLowerCase().includes(q)||e.date.includes(q)||e.area.toLowerCase().includes(q)));document.getElementById('upcoming').innerHTML=list.filter(e=>e.status!=='ended').map(card).join('');document.getElementById('ended').innerHTML=list.filter(e=>e.status==='ended').map(card).join('')}
 function filter(area,btn){currentArea=area;document.querySelectorAll('.filters .pill').forEach(b=>b.classList.remove('active'));btn.classList.add('active');render()}
