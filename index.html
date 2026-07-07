@@ -100,9 +100,12 @@
 .note{background:#fff7ed;border:1px dashed #fed7aa;border-radius:14px;padding:10px;margin:10px 0;font-weight:850;color:#9a3412}
 
 
-.member-row{display:grid;grid-template-columns:32px 1fr 42px 24px;align-items:center;column-gap:10px}
-.member-name{font-weight:950;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.gender-text{text-align:left;font-weight:700}
+.table-scroll{width:100%;overflow-x:auto;margin-top:8px}
+.member-table{width:100%;border-collapse:collapse;font-size:13px;background:#fff}
+.member-table th,.member-table td{border:1px solid #e5e7eb;padding:8px 9px;text-align:center;vertical-align:middle;white-space:nowrap}
+.member-table th{background:#fff7ed;color:#ea580c;font-weight:950}
+.member-table th:nth-child(2),.member-table td:nth-child(2){text-align:left;min-width:140px}
+.member-table .facebook-f-icon{width:22px;height:22px;margin:0}
 
 </style>
 </head>
@@ -235,14 +238,21 @@ function memberRow(p,i,wait){const gender=p.includes('👩')?'Nữ':'Nam';return
 function card(e,i){
   const pct=Math.min(100,Math.round(e.used/e.slot*100));
   const left=e.slot-e.used;
-  const row=(p,n,wait)=>{
-    const gender=p.includes('👩')?'Nữ':'Nam';
-    const clean=p.replace(/👨|👩/g,'').trim();
-    return `<div class="person">
-      <span class="member-row"><b class="stt">${n+1}.</b><span class="member-name">${clean}</span><span class="gender-text">${gender}</span><span class="fb-small">${fbSvg()}</span></span>
-      <span>${wait?'🟡':'<label class="paid-mini"><input type="checkbox"> Đã đóng</label>'}</span>
-    </div>`;
-  };
+  const nameOnly=p=>p.replace(/👨|👩/g,'').replace(/\s*\+\s*Guest\s*/g,' + Guest ').trim();
+  const genderOf=p=>p.includes('👩')?'Nữ':'Nam';
+  const regRows=e.people.map((p,n)=>`<tr>
+    <td>${n+1}</td>
+    <td>${nameOnly(p)}</td>
+    <td>${genderOf(p)}</td>
+    <td><span class="facebook-f-icon">f</span></td>
+    <td><label class="paid-mini"><input type="checkbox"> Đã đóng</label></td>
+  </tr>`).join('');
+  const waitRows=e.wait.map((p,n)=>`<tr>
+    <td>${n+1}</td>
+    <td>${nameOnly(p)}</td>
+    <td>${genderOf(p)}</td>
+    <td><span class="facebook-f-icon">f</span></td>
+  </tr>`).join('');
   return `<article class="event ${e.status==='ended'?'ended':''}">
 <div class="topline"><span class="area">${e.area}</span>${status(e)}</div>
 <h3 class="venue-title">📍 ${e.place}</h3>
@@ -260,7 +270,11 @@ function card(e,i){
 <div class="slotline">👥 Slot: ${e.used} / ${e.slot}</div>
 ${e.note?`<div class="note">📝 ${e.note}</div>`:''}
 <div class="actions"><button class="btn reg" onclick="openModal('needLogin')">${e.status==='full'?'Đăng ký chờ':'Đăng ký'}</button><button class="btn list" onclick="toggleList(${i})">Xem danh sách</button></div>
-<div class="listbox" id="list-${i}"><b>Danh sách đăng ký</b>${e.people.map((p,n)=>row(p,n,false)).join('')}${e.wait.length?`<div class="wait"><b>Danh sách chờ</b>${e.wait.map((p,n)=>row(p,n,true)).join('')}</div>`:''}</div>
+<div class="listbox" id="list-${i}">
+  <b>Danh sách đăng ký</b>
+  <div class="table-scroll"><table class="member-table"><thead><tr><th>STT</th><th>Họ và tên</th><th>Giới tính</th><th>Facebook</th><th>Đã đóng</th></tr></thead><tbody>${regRows||'<tr><td colspan="5">Chưa có ai đăng ký.</td></tr>'}</tbody></table></div>
+  ${e.wait.length?`<div class="wait"><b>Danh sách chờ</b><div class="table-scroll"><table class="member-table"><thead><tr><th>STT</th><th>Họ và tên</th><th>Giới tính</th><th>Facebook</th></tr></thead><tbody>${waitRows}</tbody></table></div></div>`:''}
+</div>
 </article>`;
 }
 function render(){const q=(document.getElementById('q')?.value||'').toLowerCase();const list=events.filter(e=>(currentArea==='all'||e.area===currentArea)&&(e.place.toLowerCase().includes(q)||e.date.includes(q)||e.area.toLowerCase().includes(q)));document.getElementById('upcoming').innerHTML=list.filter(e=>e.status!=='ended').map(card).join('');document.getElementById('ended').innerHTML=list.filter(e=>e.status==='ended').map(card).join('')}
