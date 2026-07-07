@@ -126,6 +126,16 @@ button,.auth,.pill,.btn{touch-action:manipulation;-webkit-tap-highlight-color:tr
 .paid-check{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
 .paid-check input{width:auto;margin-right:4px}
 
+
+.fee-row{grid-column:1/-1;display:flex;gap:18px;flex-wrap:wrap;align-items:center;font-weight:900}
+.member-line{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.stt{min-width:22px;display:inline-block;color:#ea580c}
+.member-name{font-weight:950}
+.fb-small{display:inline-flex;vertical-align:middle;align-items:center}
+.person em{font-style:normal;background:#fff;border:1px solid #fed7aa;border-radius:999px;padding:2px 7px;color:#9a3412;font-size:12px}
+.paid-check{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.paid-check input{width:auto;margin-right:4px}
+
 </style>
 
 <meta name="theme-color" content="#f97316">
@@ -495,8 +505,7 @@ function renderLiveEvents(){
       <a class="map" href="${e.maps}" target="_blank">🗺️ Google Map</a><div>🏸 ${e.courts} sân · 👥 ${c}/${e.slot}</div></div>
       <div class="fee">
 <div class="fee-title">💴 Phí tham gia dự kiến</div>
-<div>👨 Nam: <b>${e.maleFee}¥</b></div>
-<div>👩 Nữ: <b>${e.femaleFee}¥</b></div>
+<div class="fee-row"><span>👨 Nam: <b>${e.maleFee}¥</b></span><span>👩 Nữ: <b>${e.femaleFee}¥</b></span></div>
 </div>
 ${isKgAdmin()?`<div class="admin-money">
   <div><b>💰 Tổng dự kiến thu:</b> ${kgExpectedRevenue(e).toLocaleString()}¥</div>
@@ -531,7 +540,7 @@ function kgPerson(e,r,wait,no){
   const gender=r.gender||u.gender||'';
   const fb=u.facebook||r.facebook||'';
   return `<div class="person ${wait?'waiting':(isKgAdmin()?(r.paid?'paid':'unpaid'):'')}">
-    <span><b>${no||''}.</b> ${r.name} <em>${gender}</em> ${kgFbIcon(fb)} ${r.guestMale?'· 👨+'+r.guestMale:''} ${r.guestFemale?'· 👩+'+r.guestFemale:''}</span>
+    <span class="member-line"><b class="stt">${no||''}.</b> <span class="member-name">${r.name}</span> <em>${gender}</em> ${kgFbIcon(fb)} ${r.guestMale?'· 👨+'+r.guestMale:''} ${r.guestFemale?'· 👩+'+r.guestFemale:''}</span>
     ${isKgAdmin()?`<span class="paid-check"><label><input type="checkbox" ${r.paid?'checked':''} onchange="toggleKgPaid('${e.id}','${r.email}')"> Đã đóng</label><button class="mini" onclick="removeKgReg('${e.id}','${r.email}',${wait})">Hủy</button></span>`:''}
   </div>`
 }
